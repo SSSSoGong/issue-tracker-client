@@ -1,9 +1,6 @@
-import { useParams } from "react-router-dom";
-
-function Project() {
-    const {idx} = useParams();
+function Project({projectId}) {
     return (
-        <h1>Project {idx}</h1>
+        <h1>Project {projectId}</h1>
     );
 }
 

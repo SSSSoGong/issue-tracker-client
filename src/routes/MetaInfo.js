@@ -1,9 +1,7 @@
-import { useParams } from "react-router-dom";
 
-function MetaInfo() {
-    const {idx} = useParams();
+function MetaInfo({projectId}) {
     return (
-        <h1>MetaInfo {idx}</h1>
+        <h1>MetaInfo {projectId}</h1>
     );
 }
 

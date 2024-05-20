@@ -1,9 +1,7 @@
-import { useParams } from "react-router-dom";
 
-function DashBoard() {
-    const {idx} = useParams();
+function DashBoard({projectId}) {
     return (
-        <h1>DashBoard {idx}</h1>
+        <h1>DashBoard {projectId}</h1>
     );
 }
 

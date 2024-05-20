@@ -1,9 +1,6 @@
-import { useParams } from "react-router-dom";
-
-function Filter() {
-    const {idx} = useParams();
+function Filter({projectId}) {
     return (
-        <h1>Filter {idx}</h1>
+        <h1>Filter {projectId}</h1>
     );
 }
 

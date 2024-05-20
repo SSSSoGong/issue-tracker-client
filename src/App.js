@@ -12,12 +12,14 @@ import SignUp from './routes/SignUp';
 import MainHeader from './components/MainHeader';
 import ProjectList from './components/ProjectList';
 import ProjectMenu from './components/ProjectMenu';
+import Footer from './components/Footer';
+import ProjectFooter from './components/ProjectFooter';
 
 
 
 function App() {
   const userInfo = {
-    isLogined : true,
+    isLogined : false,
     userName : "TESTER0123412",
   }
 
@@ -25,7 +27,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/test" element={<ProjectMenu projectIdx={1}/>} />                     {/** test용 page */}
+        <Route path="/test" element={<MainHeader userInfo={userInfo}/>} />                     {/** test용 page */}
         
         {/** main page */}
         <Route path="/"                                                     
@@ -36,10 +38,10 @@ function App() {
               <h1>main</h1>   //login 되어 있지 않을 때 main page로 이동
             )
         }/>   
-        <Route path="/project/:idx" element={<Project />} />                 {/** project-issues page */}
-        <Route path="/project/:idx/filter" element={<Filter />} />           {/** project-filter page */}
-        <Route path="/project/:idx/dashBoard" element={<DashBoard />} />     {/** project-dashboard page */}
-        <Route path="/project/:idx/metaInfo" element={<MetaInfo />} />       {/** project-metaInfo page */}
+        <Route path="/project" element={<Project projectId={0}/>} />                 {/** project-issues page */}
+        <Route path="/project/filter" element={<Filter projectId={0}/>} />           {/** project-filter page */}
+        <Route path="/project/dashBoard" element={<DashBoard projectId={0}/>} />     {/** project-dashboard page */}
+        <Route path="/project/metaInfo" element={<MetaInfo projectId={0}/>} />       {/** project-metaInfo page */}
         <Route path="/login" element={<Login />} />                         {/** login page */}
         <Route path="/sign" element={<SignUp />} />                       {/** signup page */}
       </Routes>
