@@ -1,5 +1,6 @@
+import PropTypes from "prop-types";
 
-function ProjectFooter(){
+function ProjectFooter({projectId}){
     return (
         <footer class="bg-light text-center text-lg-start">
             <div class="container p-2">
@@ -15,5 +16,9 @@ function ProjectFooter(){
         </footer>
     );
 }
+ProjectFooter.propTypes = {
+    projectId : PropTypes.number.isRequired
+}
+
 
 export default ProjectFooter;

@@ -1,0 +1,17 @@
+.center_area {
+    display : flex;
+    flex-direction: row;
+    height: 80vh;
+}
+
+main.project_area {
+    flex-grow : 1;
+    padding : 15px; 
+    display : flex;
+    flex-direction: column;
+}
+
+.main_section {
+    flex-grow : 1;
+}
+

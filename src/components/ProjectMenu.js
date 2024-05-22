@@ -1,29 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-function ProjectMenu({projectIdx}){
+function ProjectMenu(){
+    const {projectId} = useParams();
+
     return (
-        <nav>
+        <nav class="project-menu">
             <ul className="nav d-flex justify-content-end">
                 <li className="nav-item">
-                    <Link className="nav-link ms-3" to={`/project/${projectIdx}`}>Issues</Link>
+                    <Link className="nav-link ms-3" to={{ pathname: `/project/${projectId}`}}>Issues</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link ms-3" to={`/project/${projectIdx}/filter`}>Filter</Link>
+                    <Link className="nav-link ms-3" to={{ pathname: `/project/${projectId}/filter`}}>Filter</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link ms-3" to={`/project/${projectIdx}/dashBoard`}>Dashboard</Link>
+                    <Link className="nav-link ms-3" to={{ pathname: `/project/${projectId}/dashBoard`}}>Dashboard</Link>
                 </li>
                 <li className="nav-item">
-                    <Link className="nav-link mx-3" to={`/project/${projectIdx}/metaInfo`}>Meta Info</Link>
+                    <Link className="nav-link mx-3" to={{ pathname: `/project/${projectId}/metaInfo`}}>Meta Info</Link>
                 </li>
             </ul>
         </nav>
     );
-}
-
-ProjectMenu.propTypes = {
-    projectIdx : PropTypes.number.isRequired,
 }
 
 

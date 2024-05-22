@@ -3,31 +3,27 @@
 
 import Footer from "../components/Footer";
 import MainHeader from "../components/MainHeader";
-import "../styles/Introduction.css";
-import { setUserLoginState } from "../App";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import styles from "../styles/Introduction.module.css";
 
 
-function mainClicked(navigate){
-    setUserLoginState(true)
-    navigate('/');
-}
-
-
-function Introduction(){
+function Introduction({isLogin}){
     const navigate = useNavigate();
-
-    const userInfo = {
-        isLogined : false,
-    }
 
     return(
         <div>
-            <MainHeader userInfo={userInfo}/>
-            <main onClick={mainClicked(navigate)}>Introduction</main>
+            <MainHeader isLogin={isLogin} userName={"TESETER"}/>
+                <main className={styles.main_lorem}>
+                    Introduction
+                </main>
             <Footer />
         </div>
     );
 }
+Introduction.propTypes = {
+    isLogin : PropTypes.bool.isRequired,
+};
+
 
 export default Introduction;

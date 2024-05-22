@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { propTypes } from "react-bootstrap/esm/Image";
 import Links from "../styles/Links.module.css"
 
+const title = "Issue Tracker"
 
 
 
@@ -14,7 +15,7 @@ function MainHeader_login({userName}){
         <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center">
                 <Link to="/" className={`title text-light h4 mb-0 ${Links.link_white}`} >
-                    <h1>Title</h1>
+                    <h1>{title}</h1>
                 </Link>
             </div>
             <div className="d-flex align-items-center">
@@ -42,7 +43,7 @@ function MainHeader_logout(){
             <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
                     <Link to="/" className={`title text-light h4 mb-0 ${Links.link_white}`} >
-                        <h1>Title</h1>
+                        <h1>{title}</h1>
                     </Link>
                 </div>
                 <div>
@@ -58,17 +59,15 @@ function MainHeader_logout(){
     );
 }
 
-function MainHeader({userInfo}){
+function MainHeader({isLogin, userName}){
     return (
-        userInfo.isLogined ? <MainHeader_login userName={userInfo.userName}/> : <MainHeader_logout />
+        isLogin ? <MainHeader_login userName={userName}/> : <MainHeader_logout />
     );
 }
 
 MainHeader.propTypes = {
-    userInfo : PropTypes.shape({
-        isLogined : PropTypes.bool.isRequired,
-        userName : PropTypes.string,
-    }).isRequired,
+    islogin : PropTypes.bool.isRequired,
+    userName : PropTypes.string
 };
 
 

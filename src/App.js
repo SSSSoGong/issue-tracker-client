@@ -1,5 +1,6 @@
 
 import './App.css';
+import {useState, useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Project from './routes/Project';
 import Filter from './routes/Filter';
@@ -7,50 +8,54 @@ import MetaInfo from './routes/MetaInfo';
 import DashBoard from './routes/DashBoard';
 import Login from './routes/Login';
 import SignUp from './routes/SignUp';
-
-//test용 import들
-import MainHeader from './components/MainHeader';
-import ProjectList from './components/ProjectList';
-import ProjectMenu from './components/ProjectMenu';
-import Footer from './components/Footer';
-import ProjectFooter from './components/ProjectFooter';
 import Introduction from './routes/Introduction';
+import Issue from './routes/Issue';
 
 
-const userInfo = {
-  isLogined : false,
-  userName : "TESTER0123412",
-}
 
 
-/**
- * user의 login 여부를 설정하는 함수
- * @param {boolean} bool false, 혹은 true
- */
-export function setUserLoginState(bool) {
-  userInfo.isLogined = bool;
-}
+
 
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false);
+  const [userName, setUserName] = useState("TESTER");
+
+  //로컬 스토리지에서 로그인 상태를 확인하고 설정
+  useEffect(() => {
+    const loggedIn = localStorage.getItem('isLogin');
+    if(loggedIn === 'true'){
+      setIsLogin(true);
+    }
+  }, []);
+
+  //isLogin 상태가 변경될 때 로컬 스토리지에 상태 업데이트
+  useEffect(() => {
+    localStorage.setItem('isLogin', isLogin.toString());
+  }, [isLogin]);
+
+  
   return (
     <Router>
       <Routes>
-        <Route path="/test" element={<MainHeader userInfo={userInfo}/>} />                     {/** test용 page */}
+        
         
         {/** main page */}
         <Route path="/"                                                     
             element={                                          
-            userInfo.isLogined ? (
-              <Navigate to="project" replace />  //login 되어 있다면 project 1로 이동
+            isLogin ? (
+              <Navigate to="project/1" replace />  //login 되어 있다면 project 1로 이동
             ) : (
-              <Introduction />  //login 되어 있지 않을 때 main page로 이동
+              <Introduction isLogin = {isLogin} setIsLogin={setIsLogin}/>  //login 되어 있지 않을 때 main page로 이동
             )
         }/>   
-        <Route path="/project" element={<Project projectId={0}/>} />                 {/** project-issues page */}
-        <Route path="/project/filter" element={<Filter projectId={0}/>} />           {/** project-filter page */}
-        <Route path="/project/dashBoard" element={<DashBoard projectId={0}/>} />     {/** project-dashboard page */}
-        <Route path="/project/metaInfo" element={<MetaInfo projectId={0}/>} />       {/** project-metaInfo page */}
+        <Route path="/project/:projectId" element={<Project isLogin={isLogin} userName={userName}/>} />                 {/** project-issues page */}
+        <Route path="/project/:projectId/filter" element={<Filter isLogin={isLogin} userName={userName}/>} />           {/** project-filter page */}
+        <Route path="/project/:projectId/dashBoard" element={<DashBoard isLogin={isLogin} userName={userName}/>} />     {/** project-dashboard page */}
+        <Route path="/project/:projectId/metaInfo" element={<MetaInfo isLogin={isLogin} userName={userName}/>} />       {/** project-metaInfo page */}
+        
+        <Route path="/project/:projectId/:issueId" element={<Issue isLogin={isLogin} userName={userName}/>} />          {/**Issue page */}
+        
         <Route path="/login" element={<Login />} />                         {/** login page */}
         <Route path="/sign" element={<SignUp />} />                       {/** signup page */}
       </Routes>
