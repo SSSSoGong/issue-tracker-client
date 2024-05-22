@@ -14,16 +14,25 @@ import ProjectList from './components/ProjectList';
 import ProjectMenu from './components/ProjectMenu';
 import Footer from './components/Footer';
 import ProjectFooter from './components/ProjectFooter';
+import Introduction from './routes/Introduction';
 
+
+const userInfo = {
+  isLogined : false,
+  userName : "TESTER0123412",
+}
+
+
+/**
+ * user의 login 여부를 설정하는 함수
+ * @param {boolean} bool false, 혹은 true
+ */
+export function setUserLoginState(bool) {
+  userInfo.isLogined = bool;
+}
 
 
 function App() {
-  const userInfo = {
-    isLogined : false,
-    userName : "TESTER0123412",
-  }
-
-
   return (
     <Router>
       <Routes>
@@ -33,9 +42,9 @@ function App() {
         <Route path="/"                                                     
             element={                                          
             userInfo.isLogined ? (
-              <Navigate to="project/1" replace />  //login 되어 있다면 project 1로 이동
+              <Navigate to="project" replace />  //login 되어 있다면 project 1로 이동
             ) : (
-              <h1>main</h1>   //login 되어 있지 않을 때 main page로 이동
+              <Introduction />  //login 되어 있지 않을 때 main page로 이동
             )
         }/>   
         <Route path="/project" element={<Project projectId={0}/>} />                 {/** project-issues page */}
