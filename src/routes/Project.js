@@ -16,12 +16,12 @@ function Project({isLogin, userName}) {
     return (
         <div>
             <MainHeader isLogin={isLogin} userName={userName}/>
-            <div class="center_area">
+            <div className="center_area">
                 <ProjectList />
-                <main class="project_area">
+                <main className="project_area">
                     <ProjectMenu />
-                    <section class="main_section">
-                        <ProjectContent />
+                    <section className="main_section">
+                        <ProjectContent projectId={projectId}/>
                     </section>
                     <ProjectFooter projectId={projectId}/>
                 </main>

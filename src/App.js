@@ -10,6 +10,7 @@ import Login from './routes/Login';
 import SignUp from './routes/SignUp';
 import Introduction from './routes/Introduction';
 import Issue from './routes/Issue';
+import MainHeader from './components/MainHeader';
 
 
 
@@ -39,7 +40,6 @@ function App() {
     <Router>
       <Routes>
         
-        
         {/** main page */}
         <Route path="/"                                                     
             element={                                          
@@ -60,6 +60,7 @@ function App() {
         <Route path="/sign" element={<SignUp />} />                       {/** signup page */}
       </Routes>
     </Router>
+    
   );
 }
 

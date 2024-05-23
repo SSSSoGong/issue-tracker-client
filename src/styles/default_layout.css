@@ -13,5 +13,11 @@ main.project_area {
 
 .main_section {
     flex-grow : 1;
+    margin-top : 20px;
+}
+
+.center_area > *:first-child {
+    width: 200px;
+    flex-shrink: 0;
 }
 

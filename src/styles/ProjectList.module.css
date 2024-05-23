@@ -1,0 +1,17 @@
+.list {
+    width : 100%;
+}
+
+.list_item {
+    width: 100%;
+    text-align: center;
+}
+
+.item {
+    color: black !important;
+}
+
+.item:hover {
+    color: white !important;
+    background-color: black;
+}
