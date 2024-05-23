@@ -19,21 +19,30 @@ import MainHeader from './components/MainHeader';
 
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
-  const [userName, setUserName] = useState("TESTER");
+  const [userInfo, setUserInfo] 
+  = useState({
+    isLogin : true, 
+    userName : "TESETER",
+    JWT : "wwwwww",
+  });
+  
+
+  //const [isLogin, setIsLogin] = useState(true);
+  //const [userName, setUserName] = useState("TESTER");
 
   //로컬 스토리지에서 로그인 상태를 확인하고 설정
   useEffect(() => {
     const loggedIn = localStorage.getItem('isLogin');
     if(loggedIn === 'true'){
-      setIsLogin(true);
+      setUserInfo(prev => ({...prev, isLogin : true}));
+      //setIsLogin(true);
     }
   }, []);
 
   //isLogin 상태가 변경될 때 로컬 스토리지에 상태 업데이트
   useEffect(() => {
-    localStorage.setItem('isLogin', isLogin.toString());
-  }, [isLogin]);
+    localStorage.setItem('isLogin', userInfo.isLogin.toString());
+  }, [userInfo.isLogin]);
 
   
   return (
@@ -43,18 +52,18 @@ function App() {
         {/** main page */}
         <Route path="/"                                                     
             element={                                          
-            isLogin ? (
+            userInfo.isLogin ? (
               <Navigate to="project/1" replace />  //login 되어 있다면 project 1로 이동
             ) : (
-              <Introduction isLogin = {isLogin} setIsLogin={setIsLogin}/>  //login 되어 있지 않을 때 main page로 이동
+              <Introduction userInfo={userInfo} setUserInfo={setUserInfo}/>  //login 되어 있지 않을 때 main page로 이동
             )
         }/>   
-        <Route path="/project/:projectId" element={<Project isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />                 {/** project-issues page */}
-        <Route path="/project/:projectId/filter" element={<Filter isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />           {/** project-filter page */}
-        <Route path="/project/:projectId/dashBoard" element={<DashBoard isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />     {/** project-dashboard page */}
-        <Route path="/project/:projectId/metaInfo" element={<MetaInfo isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />       {/** project-metaInfo page */}
+        <Route path="/project/:projectId" element={<Project userInfo={userInfo} setUserInfo={setUserInfo}/>} />                 {/** project-issues page */}
+        <Route path="/project/:projectId/filter" element={<Filter userInfo={userInfo} setUserInfo={setUserInfo} />} />           {/** project-filter page */}
+        <Route path="/project/:projectId/dashBoard" element={<DashBoard userInfo={userInfo} setUserInfo={setUserInfo} />} />     {/** project-dashboard page */}
+        <Route path="/project/:projectId/metaInfo" element={<MetaInfo userInfo={userInfo} setUserInfo={setUserInfo} />} />       {/** project-metaInfo page */}
         
-        <Route path="/project/:projectId/:issueId" element={<Issue isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />          {/**Issue page */}
+        <Route path="/project/:projectId/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />          {/**Issue page */}
         
         <Route path="/login" element={<Login />} />                         {/** login page */}
         <Route path="/sign" element={<SignUp />} />                       {/** signup page */}

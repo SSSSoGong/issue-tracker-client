@@ -13,12 +13,12 @@ import BarChart from "../components/BarChart";
 
 
 
-function Filter({isLogin, userName, setIsLogin}) {
+function Filter({userInfo, setUserInfo}) {
     const {projectId} = useParams();
 
     return (
         <div>
-            <MainHeader isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>
+            <MainHeader userInfo={userInfo} setUserInfo={setUserInfo}/>
             <div class="center_area">
                 <ProjectList />
                 <main class="project_area">
@@ -33,9 +33,8 @@ function Filter({isLogin, userName, setIsLogin}) {
     );
 }
 Filter.propTypes = {
-    isLogin : PropTypes.bool.isRequired,
-    userName : PropTypes.string,
-    setIsLogin : PropTypes.func,
+    userInfo : PropTypes.object.isRequired,
+    setUserInfo : PropTypes.func,
 };
 
 

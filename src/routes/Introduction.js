@@ -8,12 +8,12 @@ import PropTypes from "prop-types";
 import styles from "../styles/Introduction.module.css";
 
 
-function Introduction({isLogin, setIsLogin}){
+function Introduction({userInfo, setUserInfo}){
     const navigate = useNavigate();
 
     return(
         <div>
-            <MainHeader isLogin={isLogin} userName={"TESETER"} setIsLogin={setIsLogin}/>
+            <MainHeader userInfo={userInfo} setUserInfo={setUserInfo}/>
                 <main className={styles.main_lorem}>
                     Introduction
                 </main>
@@ -22,8 +22,8 @@ function Introduction({isLogin, setIsLogin}){
     );
 }
 Introduction.propTypes = {
-    isLogin : PropTypes.bool.isRequired,
-    setIsLogin : PropTypes.func,
+    userInfo : PropTypes.object.isRequired,
+    setUserInfo : PropTypes.func,
 };
 
 

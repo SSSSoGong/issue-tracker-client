@@ -8,13 +8,13 @@ import ProjectMenu from "../components/ProjectMenu";
 import ProjectFooter from "../components/ProjectFooter";
 import ProjectContent from "../components/ProjectContent";
 
-function Issue({isLogin, userName, setIsLogin}){
+function Issue({userInfo, setUserInfo}){
     const {projectId, issueId} = useParams();
 
     return (
         <div>
             <div>
-                <MainHeader isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>
+                <MainHeader userInfo={userInfo} setUserInfo={setUserInfo}/>
                 <div class="center_area">
                     <ProjectList />
                     <main class="project_area">
@@ -31,9 +31,8 @@ function Issue({isLogin, userName, setIsLogin}){
     );
 }
 Issue.propTypes = {
-    isLogin : PropTypes.bool.isRequired,
-    userName : PropTypes.string,
-    setIsLogin : PropTypes.func,
+    userInfo : PropTypes.object.isRequired,
+    setUserInfo : PropTypes.func,
 };
 
 

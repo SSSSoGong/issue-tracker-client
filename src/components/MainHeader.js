@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 const title = "Issue Tracker"
 
 
-const logOutClicked = (navigate, setIsLogin) => {
-    setIsLogin(false);
+const logOutClicked = (navigate, setUserInfo) => {
+    setUserInfo(prev => ({isLogin : false, userName : "", JWT: ""}));
     navigate('/');
 }
 
 
 //log in 상태에서의 header
-function MainHeader_login({userName, setIsLogin}){
+function MainHeader_login({userName, setUserInfo}){
     const navigate = useNavigate();
 
     return (
@@ -29,7 +29,7 @@ function MainHeader_login({userName, setIsLogin}){
                 <div className="text-light fs-4 pe-3">
                     {userName}
                 </div>
-                <a href="#" className="btn btn-light" onClick={() => logOutClicked(navigate, setIsLogin)}>Log Out</a>                        
+                <a href="#" className="btn btn-light" onClick={() => logOutClicked(navigate, setUserInfo)}>Log Out</a>                        
             </div>
         </div>
     </header>
@@ -64,16 +64,15 @@ function MainHeader_logout(){
     );
 }
 
-function MainHeader({isLogin, userName, setIsLogin}){
+function MainHeader({userInfo, setUserInfo}){
     return (
-        isLogin ? <MainHeader_login userName={userName} setIsLogin={setIsLogin}/> : <MainHeader_logout />
+        userInfo.isLogin ? <MainHeader_login userName={userInfo.userName} setUserInfo={setUserInfo}/> : <MainHeader_logout />
     );
 }
 
 MainHeader.propTypes = {
-    islogin : PropTypes.bool.isRequired,
-    userName : PropTypes.string,
-    setIsLogin : PropTypes.func,
+    userInfo : PropTypes.object.isRequired,
+    setUserInfo : PropTypes.func,
 };
 
 
