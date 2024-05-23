@@ -60,7 +60,7 @@ function Login({userInfo, setUserInfo}) {
                         <div className={`${style.userFrame}`} onChange={handleInputChange}>
                             <div className={`${style.imageFrame}`}>
                                 <img className={`${style.logoImage}`} src="/logoImage.png" alt="로고" />
-                                <h3 className={`${style.title}`}>Issue Tracker</h3>
+                                <h3 className={`${style.title}`}>ISSUE ITSUE</h3>
                             </div>
                             <UserInput
                                 type="text"

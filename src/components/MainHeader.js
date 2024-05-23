@@ -4,7 +4,7 @@ import { propTypes } from "react-bootstrap/esm/Image";
 import Links from "../styles/Links.module.css"
 import { useNavigate } from "react-router-dom";
 
-const title = "Issue Tracker"
+const title = "ISSUE ITSUE"
 
 
 const logOutClicked = (navigate, setUserInfo) => {
@@ -26,7 +26,7 @@ function MainHeader_login({userName, setUserInfo}){
                 </Link>
             </div>
             <div className="d-flex align-items-center">
-                <div className="text-light fs-4 pe-3">
+                <div className="text-light fs-4 pe-3" style={{userSelect:"none"}}>
                     {userName}
                 </div>
                 <a href="#" className="btn btn-light" onClick={() => logOutClicked(navigate, setUserInfo)}>Log Out</a>                        
