@@ -19,31 +19,39 @@ import MainHeader from './components/MainHeader';
 
 
 function App() {
+  //초기 상태를 로컬 스토리지에서 백업
+  const savedJWT = localStorage.getItem('JWT');
+  const loggedIn = localStorage.getItem('isLogin');
+
+
   const [userInfo, setUserInfo] 
   = useState({
-    isLogin : true, 
+    isLogin : loggedIn || true, 
     userName : "TESETER",
-    JWT : "wwwwww",
+    JWT : savedJWT || "default",
   });
   
 
-  //const [isLogin, setIsLogin] = useState(true);
-  //const [userName, setUserName] = useState("TESTER");
-
   //로컬 스토리지에서 로그인 상태를 확인하고 설정
-  useEffect(() => {
-    const loggedIn = localStorage.getItem('isLogin');
-    if(loggedIn === 'true'){
-      setUserInfo(prev => ({...prev, isLogin : true}));
-      //setIsLogin(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const loggedIn = localStorage.getItem('isLogin');
+  //   const savedJWT = localStorage.getItem('JWT')
+  //   if(loggedIn === 'true'){
+  //     setUserInfo(prev => ({...prev, isLogin : true}));
+  //   }
+  // }, []);
+
+
 
   //isLogin 상태가 변경될 때 로컬 스토리지에 상태 업데이트
   useEffect(() => {
     localStorage.setItem('isLogin', userInfo.isLogin.toString());
   }, [userInfo.isLogin]);
 
+  //JWT 상태가 변경될 때 로컬 스토리지에 상태 업데이트
+  useEffect(() => {
+    localStorage.setItem('JWT', userInfo.JWT.toString());
+  }, [userInfo.JWT]);
   
   return (
     <Router>
@@ -65,7 +73,7 @@ function App() {
         
         <Route path="/project/:projectId/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />          {/**Issue page */}
         
-        <Route path="/login" element={<Login />} />                         {/** login page */}
+        <Route path="/login" element={<Login userInfo={userInfo} setUserInfo={setUserInfo}/>} />                         {/** login page */}
         <Route path="/sign" element={<SignUp />} />                       {/** signup page */}
       </Routes>
     </Router>
