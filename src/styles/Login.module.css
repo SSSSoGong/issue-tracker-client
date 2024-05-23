@@ -1,0 +1,27 @@
+.login {
+    height : 90vh;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+
+}
+
+.userFrame {
+    height : 70%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.imageFrame {
+    display : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoImage {
+    height : 100px;
+    width : 120px;
+}

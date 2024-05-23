@@ -6,8 +6,10 @@ import Footer from "../components/Footer";
 import UserButton from "../components/UserButton";
 import UserInput from "../components/UserInput";
 
+import style from "../styles/Login.module.css"
+
 const dummyUserData = {
-    email : "tester",
+    ID : "tester",
     password : "test1",
     userName : "TESTER01",
     JWT : "thisisjwt",
@@ -21,15 +23,13 @@ function Login({userInfo, setUserInfo}) {
 
     //login 정보 관리
     const [loginInfo, setLoginInfo] = useState({
-        email : '',
+        ID : '',
         password : '',
     })
 
     //event handler
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        console.log(loginInfo.email);
-        console.log(loginInfo.password);
         setLoginInfo(loginInfo => ({
             ...loginInfo,
             [name]: value,
@@ -39,9 +39,7 @@ function Login({userInfo, setUserInfo}) {
     //login 로직 처리
     //API call이 실행되는 위치
     const loginProcess = () => {
-        //console.log(loginInfo.email);
-        //console.log(loginInfo.password);
-        if(loginInfo.email == dummyUserData.email 
+        if(loginInfo.ID == dummyUserData.ID
             && loginInfo.password == dummyUserData.password){
                 alert('로그인 되었습니다');
                 setUserInfo({isLogin: true, userName : dummyUserData.userName, JWT : dummyUserData.JWT});
@@ -58,25 +56,21 @@ function Login({userInfo, setUserInfo}) {
         <div>
             <MainHeader userInfo={userInfo} setUserInfo={setUserInfo}/>
                 <main>
-                    <div className="login">
-                        <div className="userFrame" onChange={handleInputChange}>
-                            <div className="imageFrame">
-                                <img className="logo" src="/images/Logo.svg" alt="위코드 로고" />
-                                <img
-                                    className="logo"
-                                    src="/images/logo_wecode.svg"
-                                    alt="위코드 로고"
-                                />
+                    <div className={`${style.login}`}>
+                        <div className={`${style.userFrame}`} onChange={handleInputChange}>
+                            <div className={`${style.imageFrame}`}>
+                                <img className={`${style.logoImage}`} src="/logoImage.png" alt="로고" />
+                                <h3 className={`${style.title}`}>Issue Tracker</h3>
                             </div>
                             <UserInput
                                 type="text"
-                                placeholder="이메일"
-                                value={loginInfo.email}
-                                name="email"
+                                placeholder="ID"
+                                value={loginInfo.ID}
+                                name="ID"
                             />
                             <UserInput
                                 type="password"
-                                placeholder="비밀번호"
+                                placeholder="password"
                                 value={loginInfo.password}
                                 name="password"
                             />
