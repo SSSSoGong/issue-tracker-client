@@ -1,7 +1,6 @@
 .center_area {
     display : flex;
     flex-direction: row;
-    height: 80vh;
 }
 
 main.project_area {

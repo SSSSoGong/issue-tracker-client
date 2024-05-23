@@ -19,7 +19,7 @@ import MainHeader from './components/MainHeader';
 
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [userName, setUserName] = useState("TESTER");
 
   //로컬 스토리지에서 로그인 상태를 확인하고 설정
@@ -49,12 +49,12 @@ function App() {
               <Introduction isLogin = {isLogin} setIsLogin={setIsLogin}/>  //login 되어 있지 않을 때 main page로 이동
             )
         }/>   
-        <Route path="/project/:projectId" element={<Project isLogin={isLogin} userName={userName}/>} />                 {/** project-issues page */}
-        <Route path="/project/:projectId/filter" element={<Filter isLogin={isLogin} userName={userName}/>} />           {/** project-filter page */}
-        <Route path="/project/:projectId/dashBoard" element={<DashBoard isLogin={isLogin} userName={userName}/>} />     {/** project-dashboard page */}
-        <Route path="/project/:projectId/metaInfo" element={<MetaInfo isLogin={isLogin} userName={userName}/>} />       {/** project-metaInfo page */}
+        <Route path="/project/:projectId" element={<Project isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />                 {/** project-issues page */}
+        <Route path="/project/:projectId/filter" element={<Filter isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />           {/** project-filter page */}
+        <Route path="/project/:projectId/dashBoard" element={<DashBoard isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />     {/** project-dashboard page */}
+        <Route path="/project/:projectId/metaInfo" element={<MetaInfo isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />       {/** project-metaInfo page */}
         
-        <Route path="/project/:projectId/:issueId" element={<Issue isLogin={isLogin} userName={userName}/>} />          {/**Issue page */}
+        <Route path="/project/:projectId/:issueId" element={<Issue isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>} />          {/**Issue page */}
         
         <Route path="/login" element={<Login />} />                         {/** login page */}
         <Route path="/sign" element={<SignUp />} />                       {/** signup page */}

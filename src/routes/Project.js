@@ -9,21 +9,20 @@ import ProjectFooter from "../components/ProjectFooter";
 import ProjectContent from "../components/ProjectContent";
 
 
-function Project({isLogin, userName}) {
+function Project({isLogin, userName, setIsLogin}) {
     const {projectId} = useParams();
     
 
     return (
         <div>
-            <MainHeader isLogin={isLogin} userName={userName}/>
+            <MainHeader isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>
             <div className="center_area">
                 <ProjectList />
                 <main className="project_area">
                     <ProjectMenu />
                     <section className="main_section">
                         <ProjectContent projectId={projectId}/>
-                    </section>
-                    <ProjectFooter projectId={projectId}/>
+                    </section>   
                 </main>
             </div>
             <Footer />
@@ -33,6 +32,7 @@ function Project({isLogin, userName}) {
 Project.propTypes = {
     isLogin : PropTypes.bool.isRequired,
     userName : PropTypes.string,
+    setIsLogin : PropTypes.func,
 };
 
 export default Project;

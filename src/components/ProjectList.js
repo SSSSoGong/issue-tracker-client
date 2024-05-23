@@ -3,9 +3,9 @@ import style from "../styles/ProjectList.module.css"
 
 //dummy data
 const projects = [
-    {projectId : 1, title : "Project 1"},
-    {projectId : 2, title : "Project 2"},
-    {projectId : 3, title : "Project 3"},
+    {projectId : 1, title : "Project A"},
+    {projectId : 2, title : "Project B"},
+    {projectId : 3, title : "Project C"},
     {projectId : 4, title : "Project 4"},
     {projectId : 5, title : "Project 5"},
 ];

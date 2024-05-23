@@ -8,13 +8,13 @@ import ProjectMenu from "../components/ProjectMenu";
 import ProjectFooter from "../components/ProjectFooter";
 import ProjectContent from "../components/ProjectContent";
 
-function Issue({isLogin, userName}){
+function Issue({isLogin, userName, setIsLogin}){
     const {projectId, issueId} = useParams();
 
     return (
         <div>
             <div>
-                <MainHeader isLogin={isLogin} userName={userName}/>
+                <MainHeader isLogin={isLogin} userName={userName} setIsLogin={setIsLogin}/>
                 <div class="center_area">
                     <ProjectList />
                     <main class="project_area">
@@ -23,7 +23,6 @@ function Issue({isLogin, userName}){
                             <h1>project {projectId}</h1>
                             <div>issue {issueId}</div>
                         </section>
-                        <ProjectFooter projectId={projectId}/>
                     </main>
                 </div>
                 <Footer />
@@ -34,6 +33,7 @@ function Issue({isLogin, userName}){
 Issue.propTypes = {
     isLogin : PropTypes.bool.isRequired,
     userName : PropTypes.string,
+    setIsLogin : PropTypes.func,
 };
 
 

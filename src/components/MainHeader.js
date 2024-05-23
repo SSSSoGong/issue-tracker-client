@@ -2,14 +2,21 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { propTypes } from "react-bootstrap/esm/Image";
 import Links from "../styles/Links.module.css"
+import { useNavigate } from "react-router-dom";
 
 const title = "Issue Tracker"
 
 
+const logOutClicked = (navigate, setIsLogin) => {
+    setIsLogin(false);
+    navigate('/');
+}
 
 
 //log in 상태에서의 header
-function MainHeader_login({userName}){
+function MainHeader_login({userName, setIsLogin}){
+    const navigate = useNavigate();
+
     return (
         <header className="bg-dark py-3 px-3">
         <div className="d-flex justify-content-between align-items-center">
@@ -22,9 +29,7 @@ function MainHeader_login({userName}){
                 <div className="text-light fs-4 pe-3">
                     {userName}
                 </div>
-                <Link to="/">
-                    <a href="#" className="btn btn-light">Log Out</a>                        
-                </Link>
+                <a href="#" className="btn btn-light" onClick={() => logOutClicked(navigate, setIsLogin)}>Log Out</a>                        
             </div>
         </div>
     </header>
@@ -59,15 +64,16 @@ function MainHeader_logout(){
     );
 }
 
-function MainHeader({isLogin, userName}){
+function MainHeader({isLogin, userName, setIsLogin}){
     return (
-        isLogin ? <MainHeader_login userName={userName}/> : <MainHeader_logout />
+        isLogin ? <MainHeader_login userName={userName} setIsLogin={setIsLogin}/> : <MainHeader_logout />
     );
 }
 
 MainHeader.propTypes = {
     islogin : PropTypes.bool.isRequired,
-    userName : PropTypes.string
+    userName : PropTypes.string,
+    setIsLogin : PropTypes.func,
 };
 
 
