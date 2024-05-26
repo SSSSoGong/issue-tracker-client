@@ -71,7 +71,7 @@ function App() {
         <Route path="/project/:projectId/dashBoard" element={<DashBoard userInfo={userInfo} setUserInfo={setUserInfo} />} />     {/** project-dashboard page */}
         <Route path="/project/:projectId/metaInfo" element={<MetaInfo userInfo={userInfo} setUserInfo={setUserInfo} />} />       {/** project-metaInfo page */}
         
-        <Route path="/project/:projectId/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />          {/**Issue page */}
+        <Route path="/issue/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />          {/**Issue page */}
         
         <Route path="/login" element={<Login userInfo={userInfo} setUserInfo={setUserInfo}/>} />                         {/** login page */}
         <Route path="/sign" element={<SignUp />} />                       {/** signup page */}

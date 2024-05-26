@@ -5,9 +5,9 @@ import Footer from "../components/Footer";
 import MainHeader from "../components/MainHeader";
 import ProjectList from "../components/ProjectList";
 import ProjectMenu from "../components/ProjectMenu";
-import ProjectFooter from "../components/ProjectFooter";
 
 import '../styles/default_layout.css'
+import BarChart from "../components/BarChart";
 
 function DashBoard({userInfo, setUserInfo}) {
     const {projectId} = useParams();
@@ -20,7 +20,7 @@ function DashBoard({userInfo, setUserInfo}) {
                 <main class="project_area">
                     <ProjectMenu />
                     <section class="main_section">
-                        <h1>DashBoard {projectId}</h1>
+                        <BarChart />
                     </section>
                 </main>
             </div>

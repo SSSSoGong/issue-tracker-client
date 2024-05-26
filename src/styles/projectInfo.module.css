@@ -1,0 +1,41 @@
+.frame {
+    background-color: #f9f9f9; /* 부드러운 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    padding: 20px; /* 내부 여백 */
+    max-width: 600px; /* 최대 너비 */
+    margin: 20px auto; /* 가운데 정렬 */
+    font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+}
+
+.title {
+    font-size: 2em; /* 큰 제목 폰트 크기 */
+    margin-bottom: 20px; /* 제목과 내용 사이 여백 */
+    color: #333; /* 진한 글자 색상 */
+    text-align: center; /* 제목 가운데 정렬 */
+}
+
+.datas {
+    display: flex; /* 플렉스박스 사용 */
+    flex-direction: column; /* 세로 정렬 */
+    gap: 15px; /* 각 데이터 항목 사이 여백 */
+}
+
+.data {
+    background-color: #fff; /* 데이터 항목 배경색 */
+    padding: 15px; /* 데이터 항목 내부 여백 */
+    border-radius: 6px; /* 데이터 항목 모서리 둥글게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 약간의 그림자 */
+}
+
+.dataTitle {
+    font-size: 1.2em; /* 데이터 제목 폰트 크기 */
+    font-weight: bold; /* 굵은 글자 */
+    color: #444; /* 중간 정도의 글자 색상 */
+    margin-bottom: 5px; /* 제목과 내용 사이 여백 */
+}
+
+.dataContent {
+    font-size: 1em; /* 데이터 내용 폰트 크기 */
+    color: #666; /* 내용 글자 색상 */
+}

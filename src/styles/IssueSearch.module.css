@@ -1,0 +1,31 @@
+.frame {
+    display: flex;
+    flex-direction: column;
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.inputFrame {
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+}
+
+.label {
+    margin-right: 10px;
+}
+
+.inputBox,
+.selectBox {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submitBtn {
+    margin-top: 10px;
+}

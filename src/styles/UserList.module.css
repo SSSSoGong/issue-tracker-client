@@ -1,0 +1,49 @@
+.frame {
+    background-color: #f9f9f9; /* 부드러운 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    padding: 20px; /* 내부 여백 */
+    max-width: 600px; /* 최대 너비 */
+    margin: 20px auto; /* 가운데 정렬 */
+    font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+}
+
+.title {
+    font-size: 1.5em; /* 제목 폰트 크기 */
+    margin-bottom: 15px; /* 제목과 목록 사이 여백 */
+    color: #333; /* 진한 글자 색상 */
+}
+
+.users {
+    list-style: none; /* 목록 기호 제거 */
+    padding: 0; /* 목록 내부 여백 제거 */
+}
+
+.userFrame {
+    background-color: #fff; /* 사용자 프레임 배경색 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    margin-bottom: 10px; /* 사용자 프레임 간 여백 */
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.roleFrame, .nameFrame {
+    padding: 10px; /* 역할과 이름 프레임 내부 여백 */
+}
+
+.roleFrame {
+    border-radius : 10px;
+    background-color: #ffe0ac; /* 역할 프레임 배경색 */
+    margin-right: 5px;
+    width: 20%;
+    text-align: center;
+
+}
+
+.nameFrame {
+    border-radius : 10px;
+    background-color: #cfe2ff; /* 이름 프레임 배경색 */
+    width : 80%;
+}

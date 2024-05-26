@@ -27,7 +27,7 @@ function ProjectContent({projectId}){
                         <div className={`${style.list_tag}`}>{item.state}</div>
                         <ul className={`${style.list}`}>
                             {item.issueList.map((issue) => (
-                                <li className={`${style.item}`}><Link to={{pathname: `/project/${projectId}/${issue.id}`}} className={`${linkStyle.link_black}`}>
+                                <li className={`${style.item}`}><Link to={{pathname: `/issue/${issue.id}`}} className={`${linkStyle.link_black}`}>
                                     <div className={`${style.item_title}`}>{issue.title}</div>
                                     <div className={`${style.item_desc}`}>{issue.description}</div>
                                 </Link></li>

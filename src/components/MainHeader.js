@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { propTypes } from "react-bootstrap/esm/Image";
 import Links from "../styles/Links.module.css"
 import { useNavigate } from "react-router-dom";
 

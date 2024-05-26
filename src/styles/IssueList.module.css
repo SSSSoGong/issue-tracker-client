@@ -1,0 +1,53 @@
+.frame {
+    background-color: #f9f9f9; /* 부드러운 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    padding: 20px; /* 내부 여백 */
+    max-width: 600px; /* 최대 너비 */
+    margin: 20px auto; /* 가운데 정렬 */
+    font-family: Arial, sans-serif; /* 기본 폰트 설정 */
+}
+
+.issueFrame {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+
+    background-color: #fff; /* 사용자 프레임 배경색 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    margin-bottom: 10px; /* 사용자 프레임 간 여백 */
+    
+}
+
+.state,
+.priority {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    text-align: center;
+    margin-right: 10px;
+    width : 100px;
+}
+
+.state {
+    background-color: #ffe0ac;
+}
+
+.priority {
+    background-color: #cfe2ff;
+}
+
+.title {
+    margin-right: 10px;
+    font-size: 25px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.link {
+    text-decoration: none;
+    color: #333;
+}
+
