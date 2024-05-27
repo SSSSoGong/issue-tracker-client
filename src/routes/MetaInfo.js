@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import MainHeader from "../components/MainHeader";
@@ -65,6 +65,9 @@ function MetaInfo({userInfo, setUserInfo}) {
                             createdAt={projectInfo.createdAt}
                             adminName={projectInfo.adminName} />
                         <UserList users={users} />
+                        <Link to={{ pathname: `/project/${projectId}/modify`}}
+                        style={{display : "block", textAlign:"end", marginRight : "30px", textDecoration : "none", color:"Black", fontStyle : "oblique"}}>
+                            정보 수정</Link> {/** project 수정 버튼 */}
                     </section>
                 </main>
             </div>

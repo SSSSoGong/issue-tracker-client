@@ -13,7 +13,11 @@ const projects = [
 function ProjectList(){
     return (
         <aside id="aside-menu" className="d-flex flex-column" style={{ width: '200px', borderRight: '1px solid #ddd' }}>
-            <button type="button" className="btn btn-outline-secondary m-3">New</button>
+            
+            <Link to={`/project-create`} className={style.link}>
+                New
+            </Link>
+
             <nav className="nav flex-column align-items-center">
                 <ul className={`nav d-flex flex-column align-items-center ${style.list}`}>
                     {projects.map((item) => (
