@@ -7,16 +7,22 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "../styles/Introduction.module.css";
 
+const ment = (
+    <>
+        Welcome to ISSUE ITSUE TRACKER SYSTEM<br />
+        Please Join With Us
+    </>
+);
+
 
 function Introduction({userInfo, setUserInfo}){
-    const navigate = useNavigate();
 
     return(
         <div>
             <MainHeader userInfo={userInfo} setUserInfo={setUserInfo}/>
-                <main className={styles.main_lorem}>
-                    Introduction
-                </main>
+            <main className={styles.main_lorem}>
+                <p>{ment}</p>
+            </main>
             <Footer />
         </div>
     );

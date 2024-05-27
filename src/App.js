@@ -11,6 +11,7 @@ import SignUp from './routes/SignUp';
 import Introduction from './routes/Introduction';
 import Issue from './routes/Issue';
 import MainHeader from './components/MainHeader';
+import ProjectCreation from './routes/ProjectCreation';
 
 
 
@@ -74,10 +75,10 @@ function App() {
         <Route path="/issue/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />          {/**Issue page */}
         
         <Route path="/login" element={<Login userInfo={userInfo} setUserInfo={setUserInfo}/>} />                         {/** login page */}
-        <Route path="/sign" element={<SignUp />} />                       {/** signup page */}
+        <Route path="/sign" element={<SignUp userInfo={userInfo} setUserInfo={setUserInfo}/>} />                       {/** signup page */}
+        <Route path="/project-create" element={<ProjectCreation userInfo={userInfo} setUserInfo={setUserInfo} />} />  {/** project create page */}
       </Routes>
     </Router>
-    
   );
 }
 

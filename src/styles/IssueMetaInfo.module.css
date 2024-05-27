@@ -1,0 +1,43 @@
+.frame {
+    display: flex;
+    flex-direction: column;
+    gap: 16px; /* 적절한 간격을 추가 */
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+
+    max-width: 800px;
+    margin: 0px auto;
+
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.itemFrame {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* 적절한 간격을 추가 */
+    flex: 1; /* 동일한 너비를 가지도록 설정 */
+}
+
+.tag {
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #555;
+}
+
+.priorityFrame,
+.stateFrame,
+.categoryFrame,
+.reportedDateFrame,
+.reporterFrame {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
