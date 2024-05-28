@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import style from "../styles/ProjectCreationForm.module.css"
+import UserSearchForm from "./UserSearchForm";
 
 function ProjectCreationForm({handleSubmit, handleChange, projectName, subject}){
     return(

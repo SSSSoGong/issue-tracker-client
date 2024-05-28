@@ -7,6 +7,7 @@ import ProjectMenu from "../components/ProjectMenu";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import ProjectCreationForm from "../components/ProjectCreationForm";
+import UserSearchForm from "../components/UserSearchForm";
 
 
 function ProjectCreation({userInfo, setUserInfo}) {
@@ -52,6 +53,7 @@ function ProjectCreation({userInfo, setUserInfo}) {
                             projectName={newProjectInfo.projectName}
                             subject={newProjectInfo.subject}
                             />
+                        <UserSearchForm />
                     </section>
                 </main>
             </div>
