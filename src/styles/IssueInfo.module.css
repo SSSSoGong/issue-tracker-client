@@ -1,0 +1,70 @@
+.frame {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.titleBox,
+.descriptionBox,
+.priorityAndCategoryBox,
+.priorityBox,
+.categoryBox,
+.stateBox {
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.titleBox,
+.descriptionBox {
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding : 20px;
+}
+
+.title,
+.description,
+.priority,
+.category,
+.state {
+    margin-top: 5px;
+}
+
+.smallLabel {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.priorityAndCategoryBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 0px;
+}
+
+.priorityBox,
+.categoryBox {
+    width : 50%;
+    margin : 0px 5px;
+}
+
+.priority,
+.state,
+.category {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding : 20px;
+    text-align: center;
+}
+
+.state {
+    background-color:darkgray;
+    color : white;
+    font-size: 1.5rem;
+}

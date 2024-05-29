@@ -15,6 +15,8 @@ import ProjectCreation from './routes/ProjectCreation';
 import IssueCreation from './routes/IssueCreation';
 import ProjectModification from './routes/ProjectModification';
 import IssueModification from './routes/IssueModification';
+import AxiosTest from './routes/AxiosTest';
+import IssueUpdate from './routes/IssueUpdate';
 
 
 
@@ -83,12 +85,14 @@ function App() {
         
         <Route path="/project/:projectId/issue/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />  {/**Issue page */}
         <Route path="/project/:projectId/issue/:issueId/modify" element={<IssueModification userInfo={userInfo} setUserInfo={setUserInfo}/>} />  {/**Issue page */}
-        <Route path="/project/:projectId/issue-create" element={<IssueCreation userInfo={userInfo} setUserInfo={setUserInfo} /> } />  {/** Issue create */}
-        
+        <Route path="/project/:projectId/issue-create" element={<IssueCreation userInfo={userInfo} setUserInfo={setUserInfo} /> } />  {/** Issue create page */}
+        <Route path="/project/:projectId/issue/:issueId/update" element={<IssueUpdate userInfo={userInfo} setUserInfo={setUserInfo} />} /> {/** Issue update page */}
         
         <Route path="/login" element={<Login userInfo={userInfo} setUserInfo={setUserInfo}/>} />                         {/** login page */}
         <Route path="/sign" element={<SignUp userInfo={userInfo} setUserInfo={setUserInfo}/>} />                       {/** signup page */}
         
+        <Route path="/test" element={<AxiosTest/>} /> {/**test page */}
+
       </Routes>
     </Router>
   );
