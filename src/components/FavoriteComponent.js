@@ -9,7 +9,7 @@ const FavoriteComponent = () => {
 
     // 디자인
     const buttonStyle = {
-        fontSize: '2rem',
+        fontSize: '1rem',
         color: isFavorite ? 'gold' : 'black',
         backgroundColor: isFavorite ? 'navy' : 'gray',
         border: 'none',
@@ -18,7 +18,7 @@ const FavoriteComponent = () => {
     };
 
     return (
-        <div>
+        <div style={{display:"inline"}}>
             <button onClick={toggleFavorite} style={buttonStyle}>
                 { isFavorite ? '★' : '☆' }
             </button>

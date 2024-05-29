@@ -12,6 +12,7 @@ import Introduction from './routes/Introduction';
 import Issue from './routes/Issue';
 import MainHeader from './components/MainHeader';
 import ProjectCreation from './routes/ProjectCreation';
+import IssueCreation from './routes/IssueCreation';
 
 
 
@@ -71,12 +72,15 @@ function App() {
         <Route path="/project/:projectId/filter" element={<Filter userInfo={userInfo} setUserInfo={setUserInfo} />} />           {/** project-filter page */}
         <Route path="/project/:projectId/dashBoard" element={<DashBoard userInfo={userInfo} setUserInfo={setUserInfo} />} />     {/** project-dashboard page */}
         <Route path="/project/:projectId/metaInfo" element={<MetaInfo userInfo={userInfo} setUserInfo={setUserInfo} />} />       {/** project-metaInfo page */}
-        
+
+        <Route path="/project-create" element={<ProjectCreation userInfo={userInfo} setUserInfo={setUserInfo} />} />  {/** project create page */}
+
         <Route path="/issue/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />          {/**Issue page */}
+        <Route path="/issue-create" element={<IssueCreation /> } />
         
         <Route path="/login" element={<Login userInfo={userInfo} setUserInfo={setUserInfo}/>} />                         {/** login page */}
         <Route path="/sign" element={<SignUp userInfo={userInfo} setUserInfo={setUserInfo}/>} />                       {/** signup page */}
-        <Route path="/project-create" element={<ProjectCreation userInfo={userInfo} setUserInfo={setUserInfo} />} />  {/** project create page */}
+        
       </Routes>
     </Router>
   );

@@ -50,7 +50,6 @@ function ProjectCreation({userInfo, setUserInfo}) {
             <div className="center_area">
                 <ProjectList />
                 <main className="project_area">
-                    <ProjectMenu />
                     <section className="main_section">
                         <ProjectCreationForm
                             handleChange={handleChange} 

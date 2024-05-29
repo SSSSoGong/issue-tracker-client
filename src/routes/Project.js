@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import MainHeader from "../components/MainHeader";
@@ -8,6 +8,19 @@ import ProjectMenu from "../components/ProjectMenu";
 import ProjectFooter from "../components/ProjectFooter";
 import ProjectContent from "../components/ProjectContent";
 import FavoriteComponent from "../components/FavoriteComponent";
+
+//button style 코드
+const buttonStyle = {
+    display: 'inline-block',
+    padding: '10px 20px',
+    backgroundColor: 'blue',
+    color: 'white',
+    textDecoration: 'none',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    marginLeft : "5px",
+};
 
 
 function Project({userInfo, setUserInfo}) {
@@ -21,7 +34,10 @@ function Project({userInfo, setUserInfo}) {
                 <ProjectList />
                 <main className="project_area">
                     <ProjectMenu />
-                    <FavoriteComponent />
+                    <div style={{display:"flex", flexDirection:"row"}}>
+                        <FavoriteComponent />
+                        <Link to="/issue-create" style={buttonStyle}>New Issue</Link>
+                    </div>
                     <section className="main_section">
                         <ProjectContent projectId={projectId}/>
                     </section>   
