@@ -1,34 +1,8 @@
-import { findByText } from "@testing-library/react";
 import PropTypes from "prop-types";
 import style from "../styles/IssueSearch.module.css"
+import { priorities, states, categories } from "../source/constants";
 
-//상태 값들은 server에서 백업할 수 있음
 
-//priority 값
-const priorities = [
-    "MAJOR",
-    "MINOR",
-    "CRITICAL",
-    "TRIVIAL",
-];
-//state 값
-const states = [
-    "NEW",
-    "ASSIGNED",
-    "FIXED",
-    "RESOLVED",
-    "REOPENED",
-    "CLOSED",
-];
-
-//category 값
-const categories = [
-    "REFACTORING",
-    "BUG_REPORT",
-    "FEATURE_REQUEST",
-    "DOCUMENTATION",
-    "EXTRA",
-];
 
 
 function IssueSearch({title, issueCount, priority, state, category, reporter, fixer, assignee, handleChange, handleSubmit}){

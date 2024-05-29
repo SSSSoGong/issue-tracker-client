@@ -31,6 +31,9 @@ function SignUp({ userInfo, setUserInfo }) {
 
     //singUp 로직 처리
     const signProcess = () => {
+        //API call 실행
+            //if (성공) : alery("성공"), navigate('/')
+            //else alery("실패 : 실패 이유")
         console.log(signInfo);
         navigate('/');
     }

@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import style from "../styles/ProjectCreationForm.module.css"
-import UserSearchForm from "./UserSearchForm";
 
-function ProjectCreationForm({handleSubmit, handleChange, projectName, subject}){
+function ProjectInfoInputForm({handleSubmit, handleChange, projectName, subject}){
     return(
         <form className={style.frame} onSubmit={handleSubmit}>
             <div className={style.projectInfoFrame}>
@@ -28,19 +27,16 @@ function ProjectCreationForm({handleSubmit, handleChange, projectName, subject})
                         ></textarea>
                 </div>
             </div>
-            <button className={style.btn} type="submit">프로젝트 생성</button>
+            <button className={style.btn} type="submit">Submit</button>
         </form>
     );
 }
-ProjectCreationForm.propTypes = {
+ProjectInfoInputForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     handleChange: PropTypes.func.isRequired,
     projectName : PropTypes.string.isRequired,
     subject : PropTypes.string.isRequired,
 }
 
-export default ProjectCreationForm;
+export default ProjectInfoInputForm;
 
-
-//name, subject(설명)
-//user 추가 (accountId, role)의 배열

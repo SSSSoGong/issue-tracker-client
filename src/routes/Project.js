@@ -36,7 +36,7 @@ function Project({userInfo, setUserInfo}) {
                     <ProjectMenu />
                     <div style={{display:"flex", flexDirection:"row"}}>
                         <FavoriteComponent />
-                        <Link to="/issue-create" style={buttonStyle}>New Issue</Link>
+                        <Link to="issue-create" style={buttonStyle}>New Issue</Link>
                     </div>
                     <section className="main_section">
                         <ProjectContent projectId={projectId}/>

@@ -6,7 +6,7 @@ import ProjectList from "../components/ProjectList";
 import ProjectMenu from "../components/ProjectMenu";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import ProjectCreationForm from "../components/ProjectCreationForm";
+import ProjectInfoInputForm from "../components/ProjectInfoInputForm";
 import UserSearchForm from "../components/UserSearchForm";
 
 
@@ -51,7 +51,7 @@ function ProjectCreation({userInfo, setUserInfo}) {
                 <ProjectList />
                 <main className="project_area">
                     <section className="main_section">
-                        <ProjectCreationForm
+                        <ProjectInfoInputForm
                             handleChange={handleChange} 
                             handleSubmit={handleSubmit}
                             projectName={newProjectInfo.projectName}

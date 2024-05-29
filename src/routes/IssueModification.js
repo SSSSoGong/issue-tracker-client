@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
@@ -11,16 +11,27 @@ import ProjectMenu from "../components/ProjectMenu";
 import '../styles/default_layout.css'
 import IssueInfoInputForm from "../components/IssueInfoInputForm";
 
-function IssueCreation({userInfo, setUserInfo}){
+function IssueModification({userInfo, setUserInfo}){
     const navigate = useNavigate();
     
-    //생성할 issue 정보
+    //issue 정보
     const [issueInfo, setIssueInfo] = useState({
         title : "",
         description : "",
         priority : "",
         category : "",
     })
+
+    //issue 정보 초기화
+    //API 호출하는 지점
+    const initializeIssueInfo = () => {
+        setIssueInfo({
+            title : "awesome issue",
+            description : "It is awesome issue",
+            priority : 'MAJOR',
+            category : "BUG_REPORT",
+        });
+    }
 
     //form의 값 변경 handling
     const handleChange = (event) => {
@@ -43,7 +54,10 @@ function IssueCreation({userInfo, setUserInfo}){
         navigate('/');
     }
 
-
+    //초기화 실행
+    useEffect(() => {
+        initializeIssueInfo()
+    }, []); 
 
 
     return(
@@ -69,12 +83,12 @@ function IssueCreation({userInfo, setUserInfo}){
     </div>
     );
 }
-IssueCreation.propTypes = {
+IssueModification.propTypes = {
     userInfo : PropTypes.object.isRequired,
     setUserInfo : PropTypes.func,
 };
 
-export default IssueCreation;
+export default IssueModification;
 
 
 //comment?(수정시)

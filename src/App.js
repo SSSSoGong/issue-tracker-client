@@ -13,6 +13,8 @@ import Issue from './routes/Issue';
 import MainHeader from './components/MainHeader';
 import ProjectCreation from './routes/ProjectCreation';
 import IssueCreation from './routes/IssueCreation';
+import ProjectModification from './routes/ProjectModification';
+import IssueModification from './routes/IssueModification';
 
 
 
@@ -73,10 +75,16 @@ function App() {
         <Route path="/project/:projectId/dashBoard" element={<DashBoard userInfo={userInfo} setUserInfo={setUserInfo} />} />     {/** project-dashboard page */}
         <Route path="/project/:projectId/metaInfo" element={<MetaInfo userInfo={userInfo} setUserInfo={setUserInfo} />} />       {/** project-metaInfo page */}
 
+        <Route path="/project/:projectId/modify" element={<ProjectModification userInfo={userInfo} setUserInfo={setUserInfo} />} />  {/** project modifying page */}
+
         <Route path="/project-create" element={<ProjectCreation userInfo={userInfo} setUserInfo={setUserInfo} />} />  {/** project create page */}
 
-        <Route path="/issue/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />          {/**Issue page */}
-        <Route path="/issue-create" element={<IssueCreation /> } />
+        
+        
+        <Route path="/project/:projectId/issue/:issueId" element={<Issue userInfo={userInfo} setUserInfo={setUserInfo}/>} />  {/**Issue page */}
+        <Route path="/project/:projectId/issue/:issueId/modify" element={<IssueModification userInfo={userInfo} setUserInfo={setUserInfo}/>} />  {/**Issue page */}
+        <Route path="/project/:projectId/issue-create" element={<IssueCreation userInfo={userInfo} setUserInfo={setUserInfo} /> } />  {/** Issue create */}
+        
         
         <Route path="/login" element={<Login userInfo={userInfo} setUserInfo={setUserInfo}/>} />                         {/** login page */}
         <Route path="/sign" element={<SignUp userInfo={userInfo} setUserInfo={setUserInfo}/>} />                       {/** signup page */}

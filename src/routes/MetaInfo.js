@@ -48,6 +48,19 @@ const users = [
 ];
 
 
+//button style 코드
+const buttonStyle = {
+    display: 'inline-block',
+    padding: '10px 20px',
+    backgroundColor: 'blue',
+    color: 'white',
+    textDecoration: 'none',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    marginLeft : "5px",
+};
+
 function MetaInfo({userInfo, setUserInfo}) {
     const {projectId}= useParams();
 
@@ -66,7 +79,7 @@ function MetaInfo({userInfo, setUserInfo}) {
                             adminName={projectInfo.adminName} />
                         <UserList users={users} />
                         <Link to={{ pathname: `/project/${projectId}/modify`}}
-                        style={{display : "block", textAlign:"end", marginRight : "30px", textDecoration : "none", color:"Black", fontStyle : "oblique"}}>
+                        style={buttonStyle}>
                             정보 수정</Link> {/** project 수정 버튼 */}
                     </section>
                 </main>
