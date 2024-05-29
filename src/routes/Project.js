@@ -7,6 +7,7 @@ import ProjectList from "../components/ProjectList";
 import ProjectMenu from "../components/ProjectMenu";
 import ProjectFooter from "../components/ProjectFooter";
 import ProjectContent from "../components/ProjectContent";
+import FavoriteComponent from "../components/FavoriteComponent";
 
 
 function Project({userInfo, setUserInfo}) {
@@ -20,6 +21,7 @@ function Project({userInfo, setUserInfo}) {
                 <ProjectList />
                 <main className="project_area">
                     <ProjectMenu />
+                    <FavoriteComponent />
                     <section className="main_section">
                         <ProjectContent projectId={projectId}/>
                     </section>   

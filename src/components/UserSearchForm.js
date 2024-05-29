@@ -1,13 +1,8 @@
 import { useState } from "react";
 import style from "../styles/userSearchForm.module.css"
+import PropTypes from "prop-types";
 
-/* newParticipants : 객체(userName, role, accountId) 의 배열 */
-
-function UserSearchForm(){
-    //participant를 projectCreation에서 받아와야 함
-    //projectCreationForm에서 submit을 누르면 API를 호출할 수 있도록
-    //userSearchForm에서는 유효성 검사하고 list에 넣는 것만 수행
-    const [participants, setParticipants] = useState([]);
+function UserSearchForm({participants, setParticipants}){
 
     const [accountId, setAccountId] = useState('');
     const [role, setRole] = useState('PL');
@@ -79,5 +74,16 @@ function UserSearchForm(){
         </div>
     );
 }
+UserSearchForm.prototypes = {
+    participants : PropTypes.arrayOf(
+        PropTypes.shape({
+            role: PropTypes.string,
+            accountId: PropTypes.number,
+            userName: PropTypes.string,
+        })
+    ).isRequired,
+    setParticipants : PropTypes.func.isRequired,
+}
+
 
 export default UserSearchForm;

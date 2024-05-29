@@ -19,6 +19,10 @@ function ProjectCreation({userInfo, setUserInfo}) {
         subject : "",
     });
 
+    //project에 참여할 user 목록
+    /* 객체(userName, role, accountId) 의 배열 */
+    const [participants, setParticipants] = useState([]);
+
     //form의 값 변경 handling
     const handleChange = (event) => {
         const {name, value} = event.target;
@@ -35,6 +39,7 @@ function ProjectCreation({userInfo, setUserInfo}) {
 
         //dummy code
         console.log(newProjectInfo);
+        console.log(participants);
         navigate('/');
         //main으로 이동
     }
@@ -53,7 +58,10 @@ function ProjectCreation({userInfo, setUserInfo}) {
                             projectName={newProjectInfo.projectName}
                             subject={newProjectInfo.subject}
                             />
-                        <UserSearchForm />
+                        <UserSearchForm 
+                            participants={participants}
+                            setParticipants={setParticipants}
+                            />
                     </section>
                 </main>
             </div>
