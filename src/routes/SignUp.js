@@ -1,3 +1,4 @@
+import axios from "axios";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -6,6 +7,7 @@ import Footer from "../components/Footer";
 import MainHeader from "../components/MainHeader";
 
 import style from "../styles/SignUp.module.css"
+import { APIURL } from "../source/constants";
 
 function SignUp({ userInfo, setUserInfo }) {
     const navigate = useNavigate();
@@ -30,12 +32,31 @@ function SignUp({ userInfo, setUserInfo }) {
     };
 
     //singUp 로직 처리
-    const signProcess = () => {
+    const signProcess = async () => {
         //API call 실행
-            //if (성공) : alery("성공"), navigate('/')
-            //else alery("실패 : 실패 이유")
-        console.log(signInfo);
-        navigate('/');
+        try {
+            const response = await axios.post(APIURL + "/users/register", {
+                accountId : signInfo.ID,
+                password : signInfo.password,
+                username : signInfo.userName,
+            })
+            alert('가입 되었습니다');
+            navigate('/');
+        } catch(error){
+            if (error.response) {
+                // 서버가 응답을 반환했지만 요청이 실패한 경우
+                if(error.response.status == "409")
+                    alert("ID가 이미 존재합니다");
+                else if(error.response.status == "400")
+                    alert("ID 혹은 PW가 형식에 부합하지 않습니다");
+                else
+                    console.log('status code : ', error.response.status); //error.response.status : 상태 코드 (409, 404)
+            } else {
+                // 요청 자체가 실패한 경우
+                console.error('Error registering user:', error.message);
+            }
+        }
+        
     }
 
     return (

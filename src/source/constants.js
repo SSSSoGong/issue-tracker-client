@@ -24,3 +24,5 @@ export const categories = [
     "DOCUMENTATION",
     "EXTRA",
 ];
+
+export const APIURL = 'http://localhost:8080'; 
