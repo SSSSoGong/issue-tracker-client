@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import Links from "../styles/Links.module.css"
 import { useNavigate } from "react-router-dom";
 import style from "../styles/Links.module.css"
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { APIURL } from "../source/constants";
+import { jwtDecode } from "jwt-decode";
+
 
 const title = "ISSUE ITSUE"
 
@@ -67,8 +72,40 @@ function MainHeader_logout(){
 }
 
 function MainHeader({userInfo, setUserInfo}){
+
+    const JWT = localStorage.getItem('JWT');
+    var id = null;
+
+    
+    if(JWT != "")
+        id = jwtDecode(JWT).accountId
+
+    
+    const [userName, setUserName] = useState("");
+
+    //API로 유저 이름을 가져오는 함수
+    const getUserName = async () => {
+        try {
+            const response = await axios.get(APIURL + `/users/${id}`);
+            return response.data.username;
+        } catch(error){
+            console.error(error.message);
+        }
+    };
+
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            if (userInfo.isLogin) {
+                const getName = await getUserName();
+                setUserName(getName);
+            }
+        };
+        fetchUserName();
+    }, [userInfo.isLogin]);
+
     return (
-        userInfo.isLogin ? <MainHeader_login userName={userInfo.userName} setUserInfo={setUserInfo}/> : <MainHeader_logout />
+        userInfo.isLogin ? <MainHeader_login userName={userName} setUserInfo={setUserInfo}/> : <MainHeader_logout />
     );
 }
 

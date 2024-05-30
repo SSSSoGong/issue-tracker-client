@@ -10,7 +10,6 @@ import Login from './routes/Login';
 import SignUp from './routes/SignUp';
 import Introduction from './routes/Introduction';
 import Issue from './routes/Issue';
-import MainHeader from './components/MainHeader';
 import ProjectCreation from './routes/ProjectCreation';
 import IssueCreation from './routes/IssueCreation';
 import ProjectModification from './routes/ProjectModification';
@@ -18,9 +17,10 @@ import IssueModification from './routes/IssueModification';
 import AxiosTest from './routes/AxiosTest';
 import IssueUpdate from './routes/IssueUpdate';
 import DashBoardContent from './routes/DashBoardContent';
+import UserInfoPage from './routes/UserInfoPage';
 
-
-
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 
 
@@ -28,26 +28,13 @@ import DashBoardContent from './routes/DashBoardContent';
 function App() {
   //초기 상태를 로컬 스토리지에서 백업
   const savedJWT = localStorage.getItem('JWT');
-  const loggedIn = localStorage.getItem('isLogin');
+  const loggedIn = (localStorage.getItem('isLogin') === 'true');
 
-
-  const [userInfo, setUserInfo] 
-  = useState({
-    isLogin : loggedIn || true, 
-    userName : "TESETER",
-    JWT : savedJWT || "default",
+  const [userInfo, setUserInfo] = useState({
+    isLogin: loggedIn,
+    JWT: savedJWT || "",
   });
   
-
-  //로컬 스토리지에서 로그인 상태를 확인하고 설정
-  // useEffect(() => {
-  //   const loggedIn = localStorage.getItem('isLogin');
-  //   const savedJWT = localStorage.getItem('JWT')
-  //   if(loggedIn === 'true'){
-  //     setUserInfo(prev => ({...prev, isLogin : true}));
-  //   }
-  // }, []);
-
 
 
   //isLogin 상태가 변경될 때 로컬 스토리지에 상태 업데이트
@@ -93,6 +80,7 @@ function App() {
         
         <Route path="/login" element={<Login userInfo={userInfo} setUserInfo={setUserInfo}/>} />                         {/** login page */}
         <Route path="/sign" element={<SignUp userInfo={userInfo} setUserInfo={setUserInfo}/>} />                       {/** signup page */}
+        <Route path="/userInfo" element={<UserInfoPage userInfo={userInfo} setUserInfo={setUserInfo}/>} />        {/** user information page */}
         
         <Route path="/test" element={<AxiosTest/>} /> {/**test page */}
 

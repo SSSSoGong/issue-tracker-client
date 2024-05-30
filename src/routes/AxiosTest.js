@@ -1,14 +1,26 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { APIURL } from "../source/constants";
+import { jwtDecode } from "jwt-decode";
 
 function AxiosTest(){
 
-    const userInfo = {
-        accountId : "ApiTestId",
-        password : "1234",
-        userName : "ApiTest",
+    //JWT decoding 예시
+    const JWT = localStorage.getItem('JWT');
+    const id = jwtDecode(JWT).accountId;
+
+    const fetchData = async () => {
+        try{
+            const response = await axios.get(APIURL + `/users/${id}`);
+            console.log(response.data);
+        } catch(error){
+            console.error(error.message);
+        }
     }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
 
     // //post 요청 예시
@@ -44,9 +56,7 @@ function AxiosTest(){
         // };
 
     
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
+    
 
 
     return(

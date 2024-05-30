@@ -11,6 +11,20 @@ import UserSearchForm from "../components/UserSearchForm";
 import ProjectInfoInputForm from "../components/ProjectInfoInputForm";
 
 
+//button style 코드
+const buttonStyle = {
+    display: 'inline-block',
+    padding: '10px 20px',
+    backgroundColor: 'red',
+    color: 'white',
+    textDecoration: 'none',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    marginLeft : "5px",
+};
+
+
 function ProjectModification({userInfo, setUserInfo}) {
     const navigate = useNavigate();
 
@@ -59,6 +73,13 @@ function ProjectModification({userInfo, setUserInfo}) {
         //main으로 이동
     }
 
+    //project 삭제 버튼 click event handling
+    const handleDelete = (e) => {
+        //API call 지점
+
+        navigate('/');
+    }
+
     //초기화 실행
     useEffect(() => {
         initializeProjectInfo()
@@ -82,6 +103,7 @@ function ProjectModification({userInfo, setUserInfo}) {
                             participants={participants}
                             setParticipants={setParticipants}
                             />
+                        <button style={buttonStyle} onClick={handleDelete}>프로젝트 삭제</button>
                     </section>
                 </main>
             </div>
