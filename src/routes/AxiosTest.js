@@ -9,18 +9,24 @@ function AxiosTest(){
     const JWT = localStorage.getItem('JWT');
     const id = jwtDecode(JWT).accountId;
 
-    const fetchData = async () => {
-        try{
-            const response = await axios.get(APIURL + `/users/${id}`);
-            console.log(response.data);
-        } catch(error){
-            console.error(error.message);
-        }
-    }
+    //delete 요청 예시
+    // const fetchData = async () => {
+    //     try{
+    //         const response = await axios.delete(`${APIURL}/users/unregister`,{
+    //             headers : {
+    //                 'Authorization' : JWT, 
+    //             }
+    //         })
+    //         console.log(response);
+            
+    //     } catch(error){
+    //         console.error(error.message);
+    //     }
+    // }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
 
     // //post 요청 예시
