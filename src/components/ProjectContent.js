@@ -12,13 +12,14 @@ const IssueList = [
 
 const stateList = [
     {state : "NEW", issueList : IssueList},
+    {state : "REOPENED", issueList : IssueList},
     {state : "ASSIGNED", issueList : IssueList},
     {state : "FIXED", issueList : IssueList},
     {state : "RESOLVED", issueList : IssueList},
     {state : "CLOSED", issueList : IssueList},
 ];
 
-function ProjectContent({projectId}){
+function ProjectContent(){
     return (
         <ul className={`${style.list_section}`}>
             {
@@ -36,7 +37,6 @@ function ProjectContent({projectId}){
                     </li>
                 ))
             }
-
         </ul>
     );
 }

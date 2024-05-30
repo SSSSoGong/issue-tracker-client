@@ -10,12 +10,7 @@ import style from "../styles/Login.module.css"
 import axios from "axios";
 import { APIURL } from "../source/constants";
 
-const dummyUserData = {
-    ID : "tester",
-    password : "test1",
-    userName : "TESTER01",
-    JWT : "thisisjwt",
-}
+
 
 function Login({userInfo, setUserInfo}) {
     const navigate = useNavigate();
@@ -72,7 +67,7 @@ function Login({userInfo, setUserInfo}) {
         }catch(error){
             if (error.response) {
                 // 서버가 응답을 반환했지만 요청이 실패한 경우
-                if(error.response.status == "403")
+                if(error.response.status == "401")
                     alert('가입되지 않은 정보입니다');
                 else
                     console.log('status code : ', error.response.status); 

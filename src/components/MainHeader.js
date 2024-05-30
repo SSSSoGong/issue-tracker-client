@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Links from "../styles/Links.module.css"
 import { useNavigate } from "react-router-dom";
+import style from "../styles/Links.module.css"
 
 const title = "ISSUE ITSUE"
 
@@ -26,7 +27,9 @@ function MainHeader_login({userName, setUserInfo}){
             </div>
             <div className="d-flex align-items-center">
                 <div className="text-light fs-4 pe-3" style={{userSelect:"none"}}>
-                    {userName}
+                    <Link className={style.link_white} to="/userInfo" >
+                        {userName}
+                    </Link>
                 </div>
                 <a href="#" className="btn btn-light" onClick={() => logOutClicked(navigate, setUserInfo)}>Log Out</a>                        
             </div>
