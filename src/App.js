@@ -17,6 +17,7 @@ import ProjectModification from './routes/ProjectModification';
 import IssueModification from './routes/IssueModification';
 import AxiosTest from './routes/AxiosTest';
 import IssueUpdate from './routes/IssueUpdate';
+import DashBoardContent from './routes/DashBoardContent';
 
 
 
@@ -75,6 +76,8 @@ function App() {
         <Route path="/project/:projectId" element={<Project userInfo={userInfo} setUserInfo={setUserInfo}/>} />                 {/** project-issues page */}
         <Route path="/project/:projectId/filter" element={<Filter userInfo={userInfo} setUserInfo={setUserInfo} />} />           {/** project-filter page */}
         <Route path="/project/:projectId/dashBoard" element={<DashBoard userInfo={userInfo} setUserInfo={setUserInfo} />} />     {/** project-dashboard page */}
+        <Route path="/project/:projectId/dashBoard/chart/:chartIdx" element={<DashBoardContent userInfo={userInfo} setUserInfo={setUserInfo} />} /> {/**project-dasboard-chart page */} 
+        
         <Route path="/project/:projectId/metaInfo" element={<MetaInfo userInfo={userInfo} setUserInfo={setUserInfo} />} />       {/** project-metaInfo page */}
 
         <Route path="/project/:projectId/modify" element={<ProjectModification userInfo={userInfo} setUserInfo={setUserInfo} />} />  {/** project modifying page */}

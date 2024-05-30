@@ -7,10 +7,9 @@ import ProjectList from "../components/ProjectList";
 import ProjectMenu from "../components/ProjectMenu";
 
 import '../styles/default_layout.css'
-import BarChart from "../components/BarChart";
+import ChartsList from "../components/ChartsList";
 
 function DashBoard({userInfo, setUserInfo}) {
-    const {projectId} = useParams();
 
     return (
         <div>
@@ -20,7 +19,7 @@ function DashBoard({userInfo, setUserInfo}) {
                 <main class="project_area">
                     <ProjectMenu />
                     <section class="main_section">
-                        <BarChart />
+                        <ChartsList />
                     </section>
                 </main>
             </div>

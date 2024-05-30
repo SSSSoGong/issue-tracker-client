@@ -1,5 +1,6 @@
 // BarChart.js
 import React from 'react';
+import PropTypes from "prop-types";
 import { Bar } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -21,20 +22,22 @@ ChartJS.register(
     Legend
 );
 
-const BarChart = () => {
+const BarChart = ({chartLabel, chartLabels, chartData}) => {
   // 그래프에 사용할 데이터와 옵션을 설정합니다.
     const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: chartLabels,
     datasets: [
     {
-        label: 'Success',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        label: chartLabel,
+        data: chartData,
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1,
     },
     ],
 };
+
+
 
 const options = {
     responsive: true,
