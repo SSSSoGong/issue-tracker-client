@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { APIURL } from "../source/constants";
 import { jwtDecode } from "jwt-decode";
 
@@ -8,6 +8,30 @@ function AxiosTest(){
     //JWT decoding 예시
     const JWT = localStorage.getItem('JWT');
     const id = jwtDecode(JWT).accountId;
+
+    const [projectList, setProjectList] = useState([]);
+
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get(`${APIURL}/users/${id}/projects`,{
+                headers : {
+                    'Authorization' : JWT,
+                }
+            })
+
+            setProjectList(response.data);
+            console.log(projectList);
+
+        } catch(error){
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
 
     //delete 요청 예시
     // const fetchData = async () => {
@@ -23,10 +47,6 @@ function AxiosTest(){
     //         console.error(error.message);
     //     }
     // }
-
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
 
 
     // //post 요청 예시

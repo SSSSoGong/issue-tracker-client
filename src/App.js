@@ -19,8 +19,7 @@ import IssueUpdate from './routes/IssueUpdate';
 import DashBoardContent from './routes/DashBoardContent';
 import UserInfoPage from './routes/UserInfoPage';
 
-import axios from 'axios';
-import { jwtDecode } from 'jwt-decode';
+
 
 
 
@@ -34,8 +33,6 @@ function App() {
     isLogin: loggedIn,
     JWT: savedJWT || "",
   });
-  
-
 
   //isLogin 상태가 변경될 때 로컬 스토리지에 상태 업데이트
   useEffect(() => {
@@ -46,7 +43,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem('JWT', userInfo.JWT.toString());
   }, [userInfo.JWT]);
-  
+
+
+
+
+
+
   return (
     <Router>
       <Routes>
@@ -55,7 +57,7 @@ function App() {
         <Route path="/"                                                     
             element={                                          
             userInfo.isLogin ? (
-              <Navigate to="project/1" replace />  //login 되어 있다면 project 1로 이동
+              <Navigate to={`project/0`} replace />  //login 되어 있다면 default page로 이동
             ) : (
               <Introduction userInfo={userInfo} setUserInfo={setUserInfo}/>  //login 되어 있지 않을 때 main page로 이동
             )

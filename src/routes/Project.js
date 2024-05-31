@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import MainHeader from "../components/MainHeader";
 import ProjectList from "../components/ProjectList";
 import ProjectMenu from "../components/ProjectMenu";
-import ProjectFooter from "../components/ProjectFooter";
 import ProjectContent from "../components/ProjectContent";
 import FavoriteComponent from "../components/FavoriteComponent";
 
@@ -22,10 +21,36 @@ const buttonStyle = {
     marginLeft : "5px",
 };
 
+//description style 코드
+const desStyle = {
+    height : "70vh",
+    textAlign : "center",
+    paddingTop : "20vh",
+    fontSize : "2.5em",
+}
+
 
 function Project({userInfo, setUserInfo}) {
     const {projectId} = useParams();
     
+
+    //로그인 하자마자 보이는 default page
+    if(projectId == '0'){
+        return(
+            <div>
+                <MainHeader userInfo={userInfo} setUserInfo={setUserInfo}/>
+                <div className="center_area">
+                    <ProjectList />
+                    <main className="project_area">
+                        <section className="main_section">
+                            <div className="description" style={desStyle}>Welcome</div>
+                        </section>   
+                    </main>
+                </div>
+                <Footer />
+            </div>
+        );
+    }
 
     return (
         <div>
