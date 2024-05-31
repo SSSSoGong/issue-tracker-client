@@ -32,7 +32,7 @@ function ProjectModification({userInfo, setUserInfo}) {
 
     const {projectId} = useParams();
 
-    //생성할 proejct 정보
+    //생성할 project 정보
     const [projectInfo, setProjectInfo] = useState({
         projectName : "",
         subject : "",
@@ -42,18 +42,50 @@ function ProjectModification({userInfo, setUserInfo}) {
     /* 객체(userName, role, accountId) 의 배열 */
     const [participants, setParticipants] = useState([]);
 
+    //기존의 project 소속 user 목록
+    const [prevParticipants, setPrevParticipants] = useState([]);
+
 
     //API 콜 실행
     //project Info와 participants를 초기화
-    const initializeProjectInfo = () => {
-        //dummycode
-        setProjectInfo({
-            projectName : "Cool project", subject : "awesome subject"
-        });
+    const initializeProjectInfo = async () => {
 
-        setParticipants([
-            {accountId : "leader", role : "PL", userName : "IM Leader"}
-        ]);
+        try {
+            const response = await axios.get(`${APIURL}/projects/${projectId}`, {
+                headers : {
+                    'Authorization' : userInfo.JWT, 
+                }
+            });
+
+            setProjectInfo({
+                projectName : response.data.name,
+                subject : response.data.subject,
+            });
+
+            const response2 = await axios.get(`${APIURL}/projects/${projectId}/users`,{
+                    headers : {
+                        'Authorization' : userInfo.JWT, 
+                    }
+                }
+            );
+
+            setParticipants(response2.data.map((participant) => ({
+                accountId : participant.accountId,
+                role : participant.role,
+                userName : participant.username,
+            })));
+
+            setPrevParticipants(response2.data.map((participant) => ({
+                accountId : participant.accountId,
+                role : participant.role,
+                userName : participant.username,
+            })));
+
+
+        } catch(error) {
+            console.error(error.message);
+        }
+
     };
 
     //form의 값 변경 handling
@@ -65,16 +97,61 @@ function ProjectModification({userInfo, setUserInfo}) {
         });
     };
 
-    //project 생성 event handling
-    const handleSubmit = (e) => {
+    //project 수정 event handling
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
+        
+        try{
+            //project 정보 수정
+            const requestData = {
+                name : projectInfo.projectName,
+                subject : projectInfo.subject,
+            };
+            
+            const response = await axios.put(`${APIURL}/projects/${projectId}`, requestData , {
+                headers : {
+                    'Authorization' : userInfo.JWT, 
+                }
+            });
 
-        //dummy code
-        console.log(projectInfo);
-        console.log(participants);
-        navigate('/');
-        //main으로 이동
+            //project 소속 user 정보 수정
+
+                //삭제할 user 배열
+            const deletes = prevParticipants
+                .filter(prev => !participants.some(curr => curr.accountId === prev.accountId))
+                .map(prev => prev.accountId);
+
+
+                //추가할 user 배열
+            const adds = participants
+                .filter(curr => !prevParticipants.some(prev => prev.accountId === curr.accountId))
+                .map(curr => ({ accountId: curr.accountId, role: curr.role }));
+
+            
+
+                //user 삭제 API 호출 
+            const response2 = await axios.delete(`${APIURL}/projects/${projectId}/users`, {
+                headers : {
+                    'Authorization' : userInfo.JWT, 
+                },
+                data : deletes
+            });
+
+                //user 추가 API 호출
+            const response3 = await axios.post(`${APIURL}/projects/${projectId}/users`, adds, {
+                headers : {
+                    'Authorization' : userInfo.JWT, 
+                }
+            });
+
+            //project metaInfo page로 이동
+            navigate(-1);
+        } catch(error) {
+            console.error(error.message);
+            navigate(-1);
+        }
+        
     }
 
     //project 삭제 버튼 click event handling
@@ -118,6 +195,7 @@ function ProjectModification({userInfo, setUserInfo}) {
                         <UserSearchForm 
                             participants={participants}
                             setParticipants={setParticipants}
+                            userInfo={userInfo}
                             />
                         <button style={buttonStyle} onClick={handleDelete}>프로젝트 삭제</button>
                     </section>

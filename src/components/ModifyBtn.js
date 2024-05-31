@@ -26,7 +26,6 @@ function ModifyBtn({isAdmin, projectId}) {
     }, [isAdmin]);
 
     if(isAdminState){
-        console.log(isAdmin);
 
         return(
             <Link to={{ pathname: `/project/${projectId}/modify`}} style={buttonStyle}>
