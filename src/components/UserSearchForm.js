@@ -3,8 +3,9 @@ import style from "../styles/userSearchForm.module.css"
 import PropTypes from "prop-types";
 import axios from "axios";
 import { APIURL } from "../source/constants";
+import { jwtDecode } from "jwt-decode";
 
-function UserSearchForm({participants, setParticipants}){
+function UserSearchForm({participants, setParticipants, userInfo}){
 
     const [accountId, setAccountId] = useState('');
     const [role, setRole] = useState('ProjectLeader');
@@ -14,9 +15,21 @@ function UserSearchForm({participants, setParticipants}){
         return participants.some(participant => participant.accountId === accountId);
     }
 
+    //유저 본인인지 확인 함수
+    const checkIsSelf = () => {
+        const myId = jwtDecode(userInfo.JWT).accountId;
+        return (accountId === myId);
+    }
+
     //새로운 participant 등록 event handler
     const handleAddParticipants = async (event) => {
         event.preventDefault();
+
+        //입력자 자신이면 취소 시키기
+        if (checkIsSelf()){
+            alert('project admin은 목록에 포함되지 않습니다');
+            return;
+        }
 
         //participants에 이미 있으면 취소 시키기
         if (checkDuplicate()){
@@ -101,6 +114,7 @@ UserSearchForm.prototypes = {
         })
     ).isRequired,
     setParticipants : PropTypes.func.isRequired,
+    userInfo : PropTypes.object.isRequired,
 }
 
 

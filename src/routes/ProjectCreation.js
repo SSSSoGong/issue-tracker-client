@@ -56,19 +56,20 @@ function ProjectCreation({userInfo, setUserInfo}) {
             }
         };
 
+
         try {
             //새 프로젝트 생성
             const response1 = await axios.post(`${APIURL}/projects`, requestData1, config);
-            const newProjectId = response1.data.projectId;
+
 
             //프로젝트에 유저 추가
-            //const response2 = await axios.post(`${APIURL}/projects/${newProjectId}/users`, requestData2, config);
-            console.log(requestData2);
+            await axios.post(`${APIURL}/projects/${response1.data.projectId}/users`, requestData2, config);
+            
 
              //생성한 프로젝트 페이지로 이동
-            navigate(`/project/${newProjectId}`);
+            navigate(`/project/${response1.data.projectId}`);
 
-        } catch (error) {
+        }catch (error) {
             alert("생성에 실패했습니다");
             console.error("Error : ", error);
         }
@@ -91,6 +92,7 @@ function ProjectCreation({userInfo, setUserInfo}) {
                         <UserSearchForm 
                             participants={participants}
                             setParticipants={setParticipants}
+                            userInfo={userInfo}
                             />
                     </section>
                 </main>

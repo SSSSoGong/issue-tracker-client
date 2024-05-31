@@ -9,43 +9,10 @@ import ProjectMenu from "../components/ProjectMenu";
 import '../styles/default_layout.css'
 import ProjectInfo from "../components/ProjectInfo";
 import UserList from "../components/UserList";
+import axios from "axios";
+import { APIURL } from "../source/constants";
+import { useEffect, useState } from "react";
 
-//dummy project Info
-const projectInfo = {
-    projectName : "awesome Project",
-    subject : "cool subject",
-    createdAt : "2023-01-01",
-    adminName : "Admin001",
-};
-
-//dummy data (user list)
-const users = [
-    {
-        accountId : "user1",
-        userName : "IM PL",
-        role : "PL",
-    },
-    {
-        accountId : "user2",
-        userName : "IM Dev1",
-        role : "Developer",
-    },
-    {
-        accountId : "user3",
-        userName : "IM Dev2",
-        role : "Developer",
-    },
-    {
-        accountId : "user4",
-        userName : "IM Tester1",
-        role : "Tester",
-    },
-    {
-        accountId : "user5",
-        userName : "IM Tester2",
-        role : "Tester",
-    }
-];
 
 
 //button style 코드
@@ -63,6 +30,80 @@ const buttonStyle = {
 
 function MetaInfo({userInfo, setUserInfo}) {
     const {projectId}= useParams();
+
+    //project 정보 저장
+    const [projectInfo, setProjectInfo] = useState({
+        projectName : "",
+        subject : "",
+        createdAt : "",
+        adminName : "",
+    })
+
+
+    //dummy data (user list)
+    const users = [
+        {
+            accountId : "user1",
+            userName : "IM PL",
+            role : "PL",
+        },
+        {
+            accountId : "user2",
+            userName : "IM Dev1",
+            role : "Developer",
+        },
+        {
+            accountId : "user3",
+            userName : "IM Dev2",
+            role : "Developer",
+        },
+        {
+            accountId : "user4",
+            userName : "IM Tester1",
+            role : "Tester",
+        },
+        {
+            accountId : "user5",
+            userName : "IM Tester2",
+            role : "Tester",
+        }
+    ];
+
+    //projectInfo와 userList를 받아오는 API 호출문
+    const fetchProjectInfo = async() => {
+        try {
+            //project 정보 설정
+            const response = await axios.get(`${APIURL}/projects/${projectId}`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                }
+            });
+            setProjectInfo({
+                projectName : response.data.name,
+                subject : response.data.subject,
+                createdAt : response.data.createdAt,
+                adminName : response.data.adminName,
+            });
+
+            //project 포함 user 목록 설정
+            const response2 = await axios.get(`${APIURL}/projects/${projectId}/users`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                }
+            });
+            console.log(response2.data);
+            
+            
+        }catch(error){
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchProjectInfo();
+    }, []);
+
+
 
     return (
         <div>
