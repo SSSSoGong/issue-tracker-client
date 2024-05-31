@@ -12,7 +12,8 @@ import UserList from "../components/UserList";
 import axios from "axios";
 import { APIURL } from "../source/constants";
 import { useEffect, useState } from "react";
-
+import { jwtDecode } from "jwt-decode";
+import ModifyBtn from "../components/ModifyBtn";
 
 
 //button style 코드
@@ -43,35 +44,18 @@ function MetaInfo({userInfo, setUserInfo}) {
     const [users, setUsers] = useState([]);
 
 
-    //dummy data (user list)
-    // const users = [
-    //     {
-    //         accountId : "user1",
-    //         userName : "IM PL",
-    //         role : "PL",
-    //     },
-    //     {
-    //         accountId : "user2",
-    //         userName : "IM Dev1",
-    //         role : "Developer",
-    //     },
-    //     {
-    //         accountId : "user3",
-    //         userName : "IM Dev2",
-    //         role : "Developer",
-    //     },
-    //     {
-    //         accountId : "user4",
-    //         userName : "IM Tester1",
-    //         role : "Tester",
-    //     },
-    //     {
-    //         accountId : "user5",
-    //         userName : "IM Tester2",
-    //         role : "Tester",
-    //     }
-    // ];
+    const aId = jwtDecode(userInfo.JWT).accountId;
 
+    //현재 유저의 adimin 여부 판단
+    const isAdmin = async () => {
+        try {
+
+            const response = await axios.get(`${APIURL}/users/${aId}/project/${projectId}/role`)
+            return (response.data === "Administrator");
+        } catch(error) {
+            console.error(error);
+        }
+    };
 
 
     //projectInfo와 userList를 받아오는 API 호출문
@@ -124,9 +108,10 @@ function MetaInfo({userInfo, setUserInfo}) {
                             createdAt={projectInfo.createdAt}
                             adminName={projectInfo.adminName} />
                         <UserList users={users} />
-                        <Link to={{ pathname: `/project/${projectId}/modify`}}
-                        style={buttonStyle}>
-                            정보 수정</Link> {/** project 수정 버튼 */}
+                        <ModifyBtn 
+                            isAdmin={isAdmin}
+                            projectId={projectId}
+                            />
                     </section>
                 </main>
             </div>
