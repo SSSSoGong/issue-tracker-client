@@ -39,35 +39,40 @@ function MetaInfo({userInfo, setUserInfo}) {
         adminName : "",
     })
 
+    //project 참여 유저 정보
+    const [users, setUsers] = useState([]);
+
 
     //dummy data (user list)
-    const users = [
-        {
-            accountId : "user1",
-            userName : "IM PL",
-            role : "PL",
-        },
-        {
-            accountId : "user2",
-            userName : "IM Dev1",
-            role : "Developer",
-        },
-        {
-            accountId : "user3",
-            userName : "IM Dev2",
-            role : "Developer",
-        },
-        {
-            accountId : "user4",
-            userName : "IM Tester1",
-            role : "Tester",
-        },
-        {
-            accountId : "user5",
-            userName : "IM Tester2",
-            role : "Tester",
-        }
-    ];
+    // const users = [
+    //     {
+    //         accountId : "user1",
+    //         userName : "IM PL",
+    //         role : "PL",
+    //     },
+    //     {
+    //         accountId : "user2",
+    //         userName : "IM Dev1",
+    //         role : "Developer",
+    //     },
+    //     {
+    //         accountId : "user3",
+    //         userName : "IM Dev2",
+    //         role : "Developer",
+    //     },
+    //     {
+    //         accountId : "user4",
+    //         userName : "IM Tester1",
+    //         role : "Tester",
+    //     },
+    //     {
+    //         accountId : "user5",
+    //         userName : "IM Tester2",
+    //         role : "Tester",
+    //     }
+    // ];
+
+
 
     //projectInfo와 userList를 받아오는 API 호출문
     const fetchProjectInfo = async() => {
@@ -91,7 +96,7 @@ function MetaInfo({userInfo, setUserInfo}) {
                     'Authorization' : userInfo.JWT
                 }
             });
-            console.log(response2.data);
+            setUsers(response2.data);
             
             
         }catch(error){

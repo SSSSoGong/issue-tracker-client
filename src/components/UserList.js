@@ -9,7 +9,7 @@ function UserList({users}){
                 {users.map((user) => (
                     <li className={style.userFrame}>
                         <div className={style.roleFrame}>{user.role}</div>
-                        <div className={style.nameFrame}>{user.userName}</div>
+                        <div className={style.nameFrame}>{user.username}</div>
                     </li>
                 ))}
             </ul>
