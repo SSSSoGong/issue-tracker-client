@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import Footer from "../components/Footer";
 import MainHeader from "../components/MainHeader";
@@ -60,7 +60,9 @@ function Project({userInfo, setUserInfo}) {
                 <main className="project_area">
                     <ProjectMenu />
                     <div style={{display:"flex", flexDirection:"row"}}>
-                        <FavoriteComponent />
+                        <FavoriteComponent 
+                            userInfo={userInfo}
+                            />
                         <Link to="issue-create" style={buttonStyle}>New Issue</Link>
                     </div>
                     <section className="main_section">
