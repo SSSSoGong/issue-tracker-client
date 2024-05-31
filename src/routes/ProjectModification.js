@@ -6,9 +6,11 @@ import MainHeader from "../components/MainHeader";
 import ProjectList from "../components/ProjectList";
 import ProjectMenu from "../components/ProjectMenu";
 import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import UserSearchForm from "../components/UserSearchForm";
 import ProjectInfoInputForm from "../components/ProjectInfoInputForm";
+import axios from "axios";
+import { APIURL } from "../source/constants";
 
 
 //button style 코드
@@ -27,6 +29,8 @@ const buttonStyle = {
 
 function ProjectModification({userInfo, setUserInfo}) {
     const navigate = useNavigate();
+
+    const {projectId} = useParams();
 
     //생성할 proejct 정보
     const [projectInfo, setProjectInfo] = useState({
@@ -74,10 +78,22 @@ function ProjectModification({userInfo, setUserInfo}) {
     }
 
     //project 삭제 버튼 click event handling
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         //API call 지점
+        try {
+            const response = await axios.delete(`${APIURL}/projects/${projectId}`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                }
+            });
+            alert("프로젝트 삭제되었습니다");
+            navigate('/');
+        } catch(error){
+            console.error(error.message);
+        }
+        
 
-        navigate('/');
+        
     }
 
     //초기화 실행

@@ -8,29 +8,33 @@ function AxiosTest(){
     //JWT decoding 예시
     const JWT = localStorage.getItem('JWT');
     const id = jwtDecode(JWT).accountId;
+    const newProjectId = "38";
 
-    const [projectList, setProjectList] = useState([]);
 
+    const requestData2 = [
+        {accountId : "pl3", role : "ProjectLeader"},
+        {accountId : "tester3", role : "Tester"},
+    ];
+
+    const config = {
+        headers : {
+            'Authorization' : JWT,
+        }
+    };
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(`${APIURL}/users/${id}/projects`,{
-                headers : {
-                    'Authorization' : JWT,
-                }
-            })
-
-            setProjectList(response.data);
-            console.log(projectList);
-
-        } catch(error){
+            const response = await axios.post(`${APIURL}/projects/${newProjectId}/users`, requestData2, config);
+            alert('성공');
+        } catch(error) {
             console.error(error);
         }
-    }
+    };
 
     useEffect(() => {
         fetchData();
     }, []);
+    
 
 
     //delete 요청 예시

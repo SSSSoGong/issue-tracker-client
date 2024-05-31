@@ -1,24 +1,42 @@
 import { useState } from "react";
 import style from "../styles/userSearchForm.module.css"
 import PropTypes from "prop-types";
+import axios from "axios";
+import { APIURL } from "../source/constants";
 
 function UserSearchForm({participants, setParticipants}){
 
     const [accountId, setAccountId] = useState('');
-    const [role, setRole] = useState('PL');
+    const [role, setRole] = useState('ProjectLeader');
+
+    //유저 중복 입력 확인 함수
+    const checkDuplicate = () => {
+        return participants.some(participant => participant.accountId === accountId);
+    }
 
     //새로운 participant 등록 event handler
-    //유효성 확인하고 이상하면 추가 안함
-    //괜찮으면 추가함
-    const handleAddParticipants = (event) => {
+    const handleAddParticipants = async (event) => {
         event.preventDefault();
 
+        //participants에 이미 있으면 취소 시키기
+        if (checkDuplicate()){
+            alert('이미 포함된 유저입니다');
+            return;
+        }
 
-        const newParticipant = { accountId, role, userName: 'user' };
-        setParticipants([...participants, newParticipant]);
+        //user이름 API로 찾아서 넣기
+        try {
+            const response = await axios.get(`${APIURL}/users/${accountId}`);
+            const username = response.data.username;
 
-        setAccountId('');
-        setRole('PL');
+            const newParticipant = { accountId, role, userName: username };
+            setParticipants([...participants, newParticipant]);
+
+            setAccountId('');
+
+        } catch(error){
+            alert('존재하지 않는 유저입니다');
+        }
     };
 
     //delete 버튼 event listener
@@ -49,9 +67,9 @@ function UserSearchForm({participants, setParticipants}){
                         onChange={(e) => setRole(e.target.value)}
                         required
                         >
-                        <option value="PL">PL</option>
-                        <option value="DEVELOPER">DEVELOPER</option>
-                        <option value="TESTER">TESTER</option>
+                        <option value="ProjectLeader">Project Leader</option>
+                        <option value="Developer">Developer</option>
+                        <option value="Tester">Tester</option>
                     </select>
                 </div>
                 <button type="submit">Add User</button>
