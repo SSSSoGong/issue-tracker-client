@@ -66,7 +66,7 @@ function Project({userInfo, setUserInfo}) {
                         <Link to="issue-create" style={buttonStyle}>New Issue</Link>
                     </div>
                     <section className="main_section">
-                        <ProjectContent projectId={projectId}/>
+                        <ProjectContent userInfo={userInfo}/>
                     </section>   
                 </main>
             </div>

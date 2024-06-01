@@ -33,6 +33,8 @@
     margin: 0;
     display: flex;
     gap: 8px;
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+    max-width: 100%; /* 부모 요소를 넘지 않도록 */
 }
 
 .imgFrame img {

@@ -16,7 +16,9 @@
     background-color: black;
 }
 
-
+.favorite {
+    color : gold;
+}
 
 .link {
     display: block;

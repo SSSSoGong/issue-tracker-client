@@ -109,7 +109,9 @@ function UserInfoPage({userInfo, setUserInfo}) {
                             handleSubmit={handleSubmit}
                             />
                         <DeleteAccountBtn
-                            handleDelete={handleDeleteAccount}/>
+                            handleDelete={handleDeleteAccount}
+                            ment = {"Delete Account"}
+                            />
                     </section>
                 </main>
             </div>

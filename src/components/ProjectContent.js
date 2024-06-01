@@ -1,25 +1,162 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import linkStyle from "../styles/Links.module.css"
 import style from "../styles/ProjectContent.module.css"
+import axios from "axios";
+import { APIURL } from "../source/constants";
+import { useEffect, useId, useState } from "react";
+import PropTypes from "prop-types";
 
-const IssueList = [
-    {title : "Issue 1", description : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", id: 1},
-    {title : "Issue 2", description : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", id: 2},
-    {title : "Issue 3", description : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", id: 3},
-    {title : "Issue 4", description : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", id: 4},
-    {title : "Issue 5", description : "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit", id: 5},
-];
 
-const stateList = [
-    {state : "NEW", issueList : IssueList},
-    {state : "REOPENED", issueList : IssueList},
-    {state : "ASSIGNED", issueList : IssueList},
-    {state : "FIXED", issueList : IssueList},
-    {state : "RESOLVED", issueList : IssueList},
-    {state : "CLOSED", issueList : IssueList},
-];
 
-function ProjectContent(){
+function ProjectContent({userInfo}){
+    const {projectId} = useParams();
+    const [loading, setLoading] = useState(true);
+
+
+    //state 별 최신 issue 5개를 정렬하는 list
+    const [stateList, setStateList] = useState([
+        {state : "NEW", issueList : []},
+        {state : "REOPENED", issueList : []},
+        {state : "ASSIGNED", issueList : []},
+        {state : "FIXED", issueList : []},
+        {state : "RESOLVED", issueList : []},
+        {state : "CLOSED", issueList : []},
+    ]);
+
+
+    //issueList 가져오기
+    const fetchIssueList = async () => {
+
+        try {
+            
+            //NEW state
+            const newIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                },
+                params : {
+                    state : "NEW",
+                    issueCount : 5,
+                }
+            })
+
+            const news = newIssues.data.map(issue => ({
+                title: issue.title,
+                id : issue.id,
+            }));
+
+            //REOPENED state
+            const reopenedIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                },
+                params : {
+                    state : "REOPENED",
+                    issueCount : 5,
+                }
+            })
+
+            const reopeneds = reopenedIssues.data.map(issue => ({
+                title: issue.title,
+                id : issue.id,
+            }));
+
+            //ASSIGNED state
+            const assignedIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                },
+                params : {
+                    state : "ASSIGNED",
+                    issueCount : 5,
+                }
+            })
+
+            const assigneds = assignedIssues.data.map(issue => ({
+                title: issue.title,
+                id : issue.id,
+            }));
+
+            //FIXED state
+            const fixedIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                },
+                params : {
+                    state : "FIXED",
+                    issueCount : 5,
+                }
+            })
+
+            const fixeds = fixedIssues.data.map(issue => ({
+                title: issue.title,
+                id : issue.id,
+            }));
+            
+            //RESOLVED state
+            const resolvedIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                },
+                params : {
+                    state : "RESOLVED",
+                    issueCount : 5,
+                }
+            })
+
+            const resolveds = resolvedIssues.data.map(issue => ({
+                title: issue.title,
+                id : issue.id,
+            }));
+
+            //CLOSED state
+            const closedIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                },
+                params : {
+                    state : "CLOSED",
+                    issueCount : 5,
+                }
+            })
+
+            const closeds = closedIssues.data.map(issue => ({
+                title: issue.title,
+                id : issue.id,
+            }));
+            
+            //할당
+            setStateList([
+                {state : "NEW", issueList : news},
+                {state : "REOPENED", issueList : reopeneds},
+                {state : "ASSIGNED", issueList : assigneds},
+                {state : "FIXED", issueList : fixeds},
+                {state : "RESOLVED", issueList : resolveds},
+                {state : "CLOSED", issueList : closeds},
+            ]);
+
+
+
+        } catch(error) {
+            console.log(error)
+        }finally {
+            setLoading(false);
+        }
+
+
+        //issueCount = 5
+        //state = stateList.state
+
+        
+    };
+
+    
+    useEffect(()=>{
+        fetchIssueList();
+    }, [projectId]);
+
+    if (loading) return <div>Loading...</div>;
+
     return (
         <ul className={`${style.list_section}`}>
             {
@@ -30,7 +167,6 @@ function ProjectContent(){
                             {item.issueList.map((issue) => (
                                 <li className={`${style.item}`}><Link to={{pathname: `issue/${issue.id}`}} className={`${linkStyle.link_black}`}>
                                     <div className={`${style.item_title}`}>{issue.title}</div>
-                                    <div className={`${style.item_desc}`}>{issue.description}</div>
                                 </Link></li>
                             ))}
                         </ul>
@@ -39,6 +175,9 @@ function ProjectContent(){
             }
         </ul>
     );
+}
+ProjectContent.propTypes = {
+    userInfo : PropTypes.object.isRequired,
 }
 
 export default ProjectContent
