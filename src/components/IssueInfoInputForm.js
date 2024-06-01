@@ -2,7 +2,20 @@ import PropTypes from "prop-types";
 import { priorities, categories } from "../source/constants";
 import style from "../styles/IssueInfoInputForm.module.css"
 
-function IssueInfoInputForm({handleSubmit, handleChange, handleImageChange, title, description, priority, category}){
+function IssueInfoInputForm({handleSubmit, handleChange, handleImageChange, title, description, priority, category, imageFileNames}){
+    
+    // 추가: 이미지 파일 이름 표시
+    const renderImageFileNames = () => {
+        return (
+            <ul>
+                {imageFileNames.map((fileName, index) => (
+                    <li key={index}>{fileName}</li>
+                ))}
+            </ul>
+        );
+    };
+    
+    
     return(
         <form className={style.frame} onSubmit={handleSubmit}>
             <div className={style.IssueInfoFrame}>
@@ -39,6 +52,7 @@ function IssueInfoInputForm({handleSubmit, handleChange, handleImageChange, titl
                         onChange={handleImageChange}
                         accept="image/*"
                         />
+                    {renderImageFileNames()}
                 </div>
 
                 <div className={style.selectBox}>
@@ -49,7 +63,6 @@ function IssueInfoInputForm({handleSubmit, handleChange, handleImageChange, titl
                         name="category"
                         value={category}
                         onChange={handleChange}>
-                        <option value=""></option>
                         {categories.map((item, idx) => (
                                 <option key={idx} value={item}>{item}</option> 
                         ))}
@@ -64,7 +77,6 @@ function IssueInfoInputForm({handleSubmit, handleChange, handleImageChange, titl
                         name="priority"
                         value={priority}
                         onChange={handleChange}>
-                        <option value=""></option>
                         {priorities.map((item, idx) => (
                                 <option key={idx} value={item}>{item}</option> 
                         ))}
@@ -85,6 +97,8 @@ IssueInfoInputForm.propTypes = {
     description : PropTypes.string.isRequired,
     priority : PropTypes.string.isRequired,
     category : PropTypes.string.isRequired,
+
+    imageFileNames : PropTypes.array.isRequired,
 }
 
 export default IssueInfoInputForm;

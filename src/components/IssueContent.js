@@ -1,6 +1,6 @@
 import style from "../styles/IssueContent.module.css"
 import PropTypes from "prop-types";
-
+import { APIURL } from "../source/constants";
 
 
 function IssueContent({title, description, imgList}){
@@ -21,7 +21,7 @@ function IssueContent({title, description, imgList}){
             <ul className={style.imgs}>
                 {imgList.map((item, idx) => (
                     <li key={idx} className={style.imgFrame}>
-                        <img src={item} alt="image" onError={handleImageError} />
+                        <img src={`${APIURL}${item}`} alt="image" onError={handleImageError} />
                     </li>
                 ))}
             </ul>

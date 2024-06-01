@@ -4,7 +4,7 @@ import style from "../styles/CommentInputForm.module.css"
 
 function CommentInputForm({handleSubmit, handleChange, handleImageChange, content, imageFileNames}){
     
-     // 추가: 이미지 파일 이름 표시
+    // 추가: 이미지 파일 이름 표시
     const renderImageFileNames = () => {
         return (
             <ul>
