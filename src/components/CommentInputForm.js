@@ -2,8 +2,19 @@ import PropTypes from "prop-types";
 import style from "../styles/CommentInputForm.module.css"
 
 
-function CommentInputForm({handleSubmit, handleChange, handleImageChange, content}){
+function CommentInputForm({handleSubmit, handleChange, handleImageChange, content, imageFileNames}){
     
+     // 추가: 이미지 파일 이름 표시
+    const renderImageFileNames = () => {
+        return (
+            <ul>
+                {imageFileNames.map((fileName, index) => (
+                    <li key={index}>{fileName}</li>
+                ))}
+            </ul>
+        );
+    };
+
     return(
         <form className={style.frame} onSubmit={handleSubmit}>
             <textarea
@@ -15,6 +26,7 @@ function CommentInputForm({handleSubmit, handleChange, handleImageChange, conten
             onChange={handleChange}
             required
             ></textarea>
+            {renderImageFileNames()}
             <input 
                 className={style.files}
                 id="imageUrls"
@@ -33,6 +45,7 @@ CommentInputForm.propTypes = {
     handleChange: PropTypes.func.isRequired,
     handleImageChange: PropTypes.func.isRequired,
     content: PropTypes.string.isRequired,
+    imageFileNames : PropTypes.array.isRequired,
 }
 
 export default CommentInputForm;

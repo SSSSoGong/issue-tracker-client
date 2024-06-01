@@ -22,6 +22,10 @@ function Issue({userInfo, setUserInfo}){
     //----------------------------------------------------------------
     //Comment 관리 코드
     //----------------------------------------------------------------
+    
+    // 추가: 이미지 파일 이름을 저장할 상태
+    const [imageFileNames, setImageFileNames] = useState([]);
+
 
     //새로운 comment
     const [newComment, setNewComment] = useState({
@@ -44,10 +48,11 @@ function Issue({userInfo, setUserInfo}){
         setNewComment((prev) => ({
             ...prev,
             imageUrls : [...prev.imageUrls, ...files],
-        }))
+        }));
 
-
-        
+        // 파일 이름 추출하여 저장
+        const fileNames = files.map(file => file.name);
+        setImageFileNames(prevNames => [...prevNames, ...fileNames]);
     };
 
     //comment submit event handler
@@ -202,6 +207,7 @@ function Issue({userInfo, setUserInfo}){
                                 handleChange={handleChange} 
                                 handleImageChange={handleImageChange}
                                 content={newComment.content} 
+                                imageFileNames={imageFileNames}
                                 />
                         </section>
                     </main>

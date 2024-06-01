@@ -20,7 +20,12 @@ function IssueCreation({userInfo, setUserInfo}){
         description : "",
         priority : "",
         category : "",
+        imageUrls : [],
     })
+
+    //----------------------------------------------------------------
+    // issue 생성 event handler 코드
+    //----------------------------------------------------------------
 
     //form의 값 변경 handling
     const handleChange = (event) => {
@@ -29,6 +34,15 @@ function IssueCreation({userInfo, setUserInfo}){
             ...issueInfo,
             [name] : value,
         });
+    };
+
+    //image 추가 event handling
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files);
+        setIssueInfo((prev) => ({
+            ...prev,
+            imageUrls : [...prev.imageUrls, ...files],
+        }))
     };
 
     //issue 생성 event handling
@@ -57,6 +71,7 @@ function IssueCreation({userInfo, setUserInfo}){
                     <IssueInfoInputForm
                         handleSubmit={handleSubmit}
                         handleChange={handleChange}
+                        handleImageChange={handleImageChange}
                         title={issueInfo.title}
                         description={issueInfo.description}
                         priority={issueInfo.priority}

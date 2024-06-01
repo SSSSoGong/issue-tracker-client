@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { priorities, categories } from "../source/constants";
 import style from "../styles/IssueInfoInputForm.module.css"
 
-function IssueInfoInputForm({handleSubmit, handleChange, title, description, priority, category}){
+function IssueInfoInputForm({handleSubmit, handleChange, handleImageChange, title, description, priority, category}){
     return(
         <form className={style.frame} onSubmit={handleSubmit}>
             <div className={style.IssueInfoFrame}>
@@ -26,6 +26,19 @@ function IssueInfoInputForm({handleSubmit, handleChange, title, description, pri
                         value={description}
                         onChange={handleChange}
                         ></textarea>
+                </div>
+
+                <div className={style.box}>
+                    <label className={style.label} htmlFor="imageUrls">images</label>
+                    <input 
+                        className={style.files}
+                        id="imageUrls"
+                        name="imageUrls"
+                        type="file"
+                        multiple
+                        onChange={handleImageChange}
+                        accept="image/*"
+                        />
                 </div>
 
                 <div className={style.selectBox}>
@@ -66,6 +79,7 @@ function IssueInfoInputForm({handleSubmit, handleChange, title, description, pri
 IssueInfoInputForm.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     handleChange: PropTypes.func.isRequired,
+    handleImageChange : PropTypes.func.isRequired,
 
     title : PropTypes.string.isRequired,
     description : PropTypes.string.isRequired,
