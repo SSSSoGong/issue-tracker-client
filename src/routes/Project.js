@@ -7,6 +7,11 @@ import ProjectList from "../components/ProjectList";
 import ProjectMenu from "../components/ProjectMenu";
 import ProjectContent from "../components/ProjectContent";
 import FavoriteComponent from "../components/FavoriteComponent";
+import axios from "axios";
+import { APIURL } from "../source/constants";
+import { jwtDecode } from "jwt-decode";
+import { useState, useEffect } from "react";
+
 
 //button style 코드
 const buttonStyle = {
@@ -32,7 +37,38 @@ const desStyle = {
 
 function Project({userInfo, setUserInfo}) {
     const {projectId} = useParams();
+    const aId = jwtDecode(userInfo.JWT).accountId;
+
+    const [isTester, setIsTester] = useState(false);
+
+    const [loading, setLoading] = useState(true);
+
     
+    //new Issue 생성 권한 있는지 확인
+    //admin 혹은 tester 일때
+    const fetchIsTester = async () => {
+        setLoading(true);
+        try{
+            const response = await axios.get(`${APIURL}/users/${aId}/project/${projectId}/role`)
+
+            setIsTester(response.data === "Tester" || response.data === "Administrator");
+        }catch(error){
+            console.error(error);
+        }finally{
+            setLoading(false);
+        }
+    };
+
+    useEffect(()=>{
+        fetchIsTester();
+    }, [projectId]);
+
+    
+    if(loading){
+        return(
+            <div>Loading...</div>
+        )
+    }
 
     //로그인 하자마자 보이는 default page
     if(projectId == '0'){
@@ -63,7 +99,7 @@ function Project({userInfo, setUserInfo}) {
                         <FavoriteComponent 
                             userInfo={userInfo}
                             />
-                        <Link to="issue-create" style={buttonStyle}>New Issue</Link>
+                        {isTester && <Link to="issue-create" style={buttonStyle}>New Issue</Link>}
                     </div>
                     <section className="main_section">
                         <ProjectContent userInfo={userInfo}/>
