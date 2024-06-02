@@ -13,6 +13,13 @@ import BackButton from "../components/BackButton";
 import axios from "axios";
 import { APIURL } from "../source/constants";
 
+
+const chartFrameStyle = {
+    width : "80%",
+    margin : "0 auto",
+};
+
+
 function DashBoardContent({userInfo, setUserInfo}) {
     const {chartIdx, projectId} = useParams();
 
@@ -124,11 +131,13 @@ function DashBoardContent({userInfo, setUserInfo}) {
                     <ProjectMenu />
                     <section class="main_section">
                         <BackButton />
-                        <BarChart 
-                            chartData={chartDatas.data}
-                            chartLabel={chartDatas.label}
-                            chartLabels={chartDatas.labels}
-                        />
+                        <div className="chartFrame" style={chartFrameStyle}>
+                            <BarChart 
+                                chartData={chartDatas.data}
+                                chartLabel={chartDatas.label}
+                                chartLabels={chartDatas.labels}
+                            />
+                        </div>
                     </section>
                 </main>
             </div>
