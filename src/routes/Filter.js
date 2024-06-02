@@ -46,10 +46,37 @@ function Filter({userInfo, setUserInfo}) {
     };
 
     //form 제출 handling
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-        console.log(searchInfo);
+        let searchCondition = {};
+
+        Object.keys(searchInfo).forEach(key => {
+            if (searchInfo[key] !== "") {
+                searchCondition[key] = searchInfo[key];
+            }
+        });
+
+        const searchedIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+            headers : {
+                'Authorization' : userInfo.JWT
+            },
+            params : searchCondition
+        })
+
+        setIssues(searchedIssues.data.map(issue => ({
+            state : issue.state,
+            priority : issue.priority,
+            title : issue.title,
+            issueId : issue.issueId,
+        })));
+
+        try {
+
+
+        }catch(error) {
+            console.error(error);
+        }
     }
 
 
@@ -91,6 +118,7 @@ function Filter({userInfo, setUserInfo}) {
                     fetchCondition = {
                         reporter : aId,
                         issueCount : issueNumber,
+
                     };
                     break;
             }
