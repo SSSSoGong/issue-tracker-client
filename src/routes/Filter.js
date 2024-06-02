@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useLocation, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 import Footer from "../components/Footer";
@@ -17,6 +17,10 @@ import IssueList from "../components/IssueList";
 
 function Filter({userInfo, setUserInfo}) {
     const {projectId} = useParams();
+    const [loading, setLoading] = useState(true);
+
+    //띄워줄 issue의 목록
+    const [issues, setIssues] = useState([]);
 
     //search할때 사용하는 값
     const [searchInfo, setSearchInfo] = useState({
@@ -47,6 +51,37 @@ function Filter({userInfo, setUserInfo}) {
     }
 
 
+    //issues 목록 초기화
+    //각 권한에 맞게
+    const fetchIssues = async () => {
+        setLoading(true);
+
+        try {
+            const fetchCondition = {
+
+            };
+
+
+        }catch(error) {
+            console.error(error);
+        }finally{
+            setLoading(false);
+        }
+    }
+
+    useEffect(()=> {
+        fetchIssues();
+    }, []);
+
+
+
+
+    if(loading){
+        return(
+            <div>Loading...</div>
+        )
+    }
+
 
     return (
         <div>
@@ -68,7 +103,9 @@ function Filter({userInfo, setUserInfo}) {
                             handleChange={handleChange}
                             handleSubmit={handleSubmit}
                         />
-                        <IssueList />
+                        <IssueList 
+                            Issues={issues}
+                        />
                     </section>
                 </main>
             </div>

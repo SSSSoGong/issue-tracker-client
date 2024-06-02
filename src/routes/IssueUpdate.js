@@ -97,6 +97,9 @@ function IssueUpdate({userInfo, setUserInfo}){
                 case 'RESOLVED' :
                     setNextState('CLOSED');
                     break;
+                case 'CLOSED' :
+                    setNextState('REOPENED');
+                    break;
             }
 
             
@@ -253,7 +256,6 @@ function IssueUpdate({userInfo, setUserInfo}){
                         </div>
                         <StateUpdateInputForm
                             nextState={nextState}
-                            setNextState={setNextState}
                             handleSubmit={handleSubmit}
                             />
  

@@ -215,8 +215,8 @@ function Issue({userInfo, setUserInfo}){
             || (response.data.state === "REOPENED" && response2.data === 'ProjectLeader')                                   //REOPENED state이고 유저가 PL인 경우
             || (response.data.state === "ASSIGNED" && response.data.assignee != null && response.data.assignee === aId)     //ASSIGNED state이고 유저가 assignee인 경우
             || (response.data.state === "FIXED" && response.data.reporter === aId)                                          //FIXED state이고 유저가 작성자인 경우
-            || (response.data.state === "RESOLVED" && response2.data === 'ProjectLeader');                                  //RESOLVED state이고 유저가 PL인 경우
-
+            || (response.data.state === "RESOLVED" && response2.data === 'ProjectLeader')                                   //RESOLVED state이고 유저가 PL인 경우
+            || (response.data.state === "CLOSED" && response.data.reporter === aId)                                         //CLOSED state이고 유저가 작성자 일때
 
             setIsUpdatable(updatePermission);
             

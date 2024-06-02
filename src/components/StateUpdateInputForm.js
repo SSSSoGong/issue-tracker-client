@@ -8,17 +8,9 @@ const switchButtonStyle = {
     padding : '7px',
 }
 
-function StateUpdateInputForm({nextState, setNextState, handleSubmit}) {
+function StateUpdateInputForm({nextState, handleSubmit}) {
 
-    //nextState를 RESOLVED와 REOPENED로 switch 하는 함수
-    const switchState = (e) => {
-        e.preventDefault();
-
-        if(nextState === 'RESOLVED')
-            setNextState('REOPENED');
-        else if(nextState === 'REOPENED')
-            setNextState('RESOLVED');
-    };
+    
     
 
     return(
@@ -26,11 +18,6 @@ function StateUpdateInputForm({nextState, setNextState, handleSubmit}) {
             <div className={style.stateBox}>
                 <label className={style.label} htmlFor="nextState">next State</label>
                 <div className={style.state} id="nextState">{nextState}</div>
-                
-                {
-                    ((nextState === 'RESOLVED') || (nextState === 'REOPENED'))
-                    && <button onClick={switchState} style={switchButtonStyle}>switch</button>
-                }
             </div>
 
 
@@ -40,7 +27,6 @@ function StateUpdateInputForm({nextState, setNextState, handleSubmit}) {
 }
 StateUpdateInputForm.propTypes = {
     nextState : PropTypes.string.isRequired,
-    setNextState : PropTypes.func.isRequired,
     handleSubmit : PropTypes.func.isRequired,
 };
 

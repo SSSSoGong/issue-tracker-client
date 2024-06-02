@@ -10,24 +10,19 @@ function AxiosTest(){
     const id = jwtDecode(JWT).accountId;
     const projectId = "1";
     
-    const fetchData = async () => {
-        try{
-            const response = await axios.put(`${APIURL}/users/${id}/projects/${projectId}/favorite`,{
-                isFavorite : true
-            }, {
-                headers : {
-                    'Authorization' : JWT, 
-                }
-            })
-            console.log(response);
-        }catch(error){
-            console.error(error);
-        }
-    }
+    
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+
+    // 이슈 검색 예시
+    // const newIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+    //     headers : {
+    //         'Authorization' : userInfo.JWT
+    //     },
+    //     params : {
+    //         state : "NEW",
+    //         issueCount : 5,
+    //     }
+    // })
 
 
     //delete 요청 예시
