@@ -13,6 +13,7 @@ import Comments from "../components/Comments";
 import CommentInputForm from "../components/CommentInputForm";
 import axios from "axios";
 import { APIURL } from "../source/constants";
+import { jwtDecode } from "jwt-decode";
 
 
 function Issue({userInfo, setUserInfo}){
@@ -164,6 +165,10 @@ function Issue({userInfo, setUserInfo}){
         }catch(error){
             console.log(error)
         }finally{
+
+            //권한 갱신 함수 호출
+            fetchPermission();
+
             setLoading(false);
         }
         
@@ -173,6 +178,55 @@ function Issue({userInfo, setUserInfo}){
     useEffect(() => {
         fetchData();
     }, []);
+
+    //----------------------------------------------------------------
+    //issue의 수정, 삭제, 업데이트 권한 설정
+    //----------------------------------------------------------------
+    const [isEditable, setIsEditable] = useState(false);
+    const [isUpdatable, setIsUpdatable] = useState(false);
+    const [isDeletable, setIsDeletable] = useState(false);
+
+    //권한 갱신 용 API 호출
+    const fetchPermission = async() => {
+        try{
+            
+            //이슈 정보 조회
+            const response = await axios.get(`${APIURL}/projects/${projectId}/issues/${issueId}`, {
+                headers : {
+                    'Authorization' : userInfo.JWT
+                }
+            }); 
+            
+            //프로젝트에서 유저 권한 조회
+            const aId = jwtDecode(userInfo.JWT).accountId
+            const response2 = await axios.get(`${APIURL}/users/${aId}/project/${projectId}/role`);
+            
+            //삭제 권한 설정 : Admin일 시 
+            setIsDeletable(response2.data === 'Administrator');
+
+            //수정 권한 설정 : 작성자 본인일 시
+            setIsEditable(response.data.reporter === aId);
+
+
+
+            //state 갱신 권한 설정
+            const updatePermission = (response2.data === 'Administrator')                                                   //admin인 경우
+            || (response.data.state === "NEW" && response2.data === 'ProjectLeader')                                        //NEW state이고 유저가 PL인 경우
+            || (response.data.state === "REOPENED" && response2.data === 'ProjectLeader')                                   //REOPENED state이고 유저가 PL인 경우
+            || (response.data.state === "ASSIGNED" && response.data.assignee != null && response.data.assignee === aId)     //ASSIGNED state이고 유저가 assignee인 경우
+            || (response.data.state === "FIXED" && response.data.reporter === aId)                                          //FIXED state이고 유저가 작성자인 경우
+            || (response.data.state === "RESOLVED" && response2.data === 'ProjectLeader');                                  //RESOLVED state이고 유저가 PL인 경우
+
+
+            setIsUpdatable(updatePermission);
+            
+            
+
+        } catch(error) {
+            console.error(error);
+        }
+    };
+
 
 
     if (loading) return <div>Loading...</div>;
@@ -186,7 +240,12 @@ function Issue({userInfo, setUserInfo}){
                     <main class="project_area">
                         <ProjectMenu />
                         <section class="main_section">
-                            <CommandLine issueId={issueId}/>
+                            <CommandLine 
+                                isUpdatable={isUpdatable}
+                                isEditable={isEditable}
+                                isDeletable={isDeletable}
+                                userInfo={userInfo}
+                                />
                             <IssueContent 
                                 title = {issueContentInfo.title} 
                                 description={issueContentInfo.description} 

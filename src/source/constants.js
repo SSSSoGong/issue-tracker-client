@@ -12,7 +12,6 @@ export const states = [
     "ASSIGNED",
     "FIXED",
     "RESOLVED",
-    "REOPENED",
     "CLOSED",
 ];
 

@@ -40,9 +40,10 @@ function ProjectContent({userInfo}){
                 }
             })
 
+
             const news = newIssues.data.map(issue => ({
                 title: issue.title,
-                id : issue.id,
+                id : issue.issueId,
             }));
 
             //REOPENED state
@@ -58,7 +59,7 @@ function ProjectContent({userInfo}){
 
             const reopeneds = reopenedIssues.data.map(issue => ({
                 title: issue.title,
-                id : issue.id,
+                id : issue.issueId,
             }));
 
             //ASSIGNED state
@@ -74,7 +75,7 @@ function ProjectContent({userInfo}){
 
             const assigneds = assignedIssues.data.map(issue => ({
                 title: issue.title,
-                id : issue.id,
+                id : issue.issueId,
             }));
 
             //FIXED state
@@ -90,7 +91,7 @@ function ProjectContent({userInfo}){
 
             const fixeds = fixedIssues.data.map(issue => ({
                 title: issue.title,
-                id : issue.id,
+                id : issue.issueId,
             }));
             
             //RESOLVED state
@@ -106,7 +107,7 @@ function ProjectContent({userInfo}){
 
             const resolveds = resolvedIssues.data.map(issue => ({
                 title: issue.title,
-                id : issue.id,
+                id : issue.issueId,
             }));
 
             //CLOSED state
@@ -122,7 +123,7 @@ function ProjectContent({userInfo}){
 
             const closeds = closedIssues.data.map(issue => ({
                 title: issue.title,
-                id : issue.id,
+                id : issue.issueId,
             }));
             
             //할당

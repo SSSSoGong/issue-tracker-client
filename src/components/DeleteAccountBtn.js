@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 
 //button style 코드
 const buttonStyle = {
@@ -15,7 +14,7 @@ const buttonStyle = {
 };
 
 
-function DeleteAccountBtn({handleDelete, ment, commentId, visible}){
+function DeleteAccountBtn({handleDelete, ment, commentId, visible, customMarginTop}){
 
 
     if(visible){
@@ -32,10 +31,12 @@ DeleteAccountBtn.propTypes = {
     ment : PropTypes.string.isRequired,
     commentId : PropTypes.string,
     visible : PropTypes.bool,
+    customMarginTop : PropTypes.string,
 }
 
 DeleteAccountBtn.defaultProps = {
-    visible : true
+    visible : true,
+    customMarginTop : "60px",
 }
 
 export default DeleteAccountBtn;

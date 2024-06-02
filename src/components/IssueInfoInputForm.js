@@ -1,15 +1,24 @@
 import PropTypes from "prop-types";
 import { priorities, categories } from "../source/constants";
 import style from "../styles/IssueInfoInputForm.module.css"
+import { useNavigate } from "react-router-dom";
 
 function IssueInfoInputForm({handleSubmit, handleChange, handleImageChange, title, description, priority, category, imageFileNames}){
+    const navigate = useNavigate();
+
     
+
+
     // 추가: 이미지 파일 이름 표시
     const renderImageFileNames = () => {
+
+
         return (
             <ul>
                 {imageFileNames.map((fileName, index) => (
-                    <li key={index}>{fileName}</li>
+                    <li key={index}>
+                        <div>{fileName}</div>
+                    </li>
                 ))}
             </ul>
         );
@@ -103,5 +112,3 @@ IssueInfoInputForm.propTypes = {
 
 export default IssueInfoInputForm;
 
-//title, description
-//priority, category
