@@ -90,7 +90,7 @@ function Filter({userInfo, setUserInfo}) {
             var fetchCondition = {};
 
             //프로젝트에서 유저 권한 조회
-            const issueNumber = 10;
+            const issueNumber = 20;
             const aId = jwtDecode(userInfo.JWT).accountId
             const response = await axios.get(`${APIURL}/users/${aId}/project/${projectId}/role`);
 

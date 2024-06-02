@@ -210,7 +210,7 @@ function Issue({userInfo, setUserInfo}){
 
 
             //state 갱신 권한 설정
-            const updatePermission = (response2.data === 'Administrator')                                                   //admin인 경우
+            const updatePermission = (response2.data === 'Administrator' && response.data.state !== "ASSIGNED" && response.data.state != "FIXED")             //admin인 경우 (ASSIGNED,FIXED 제외)
             || (response.data.state === "NEW" && response2.data === 'ProjectLeader')                                        //NEW state이고 유저가 PL인 경우
             || (response.data.state === "REOPENED" && response2.data === 'ProjectLeader')                                   //REOPENED state이고 유저가 PL인 경우
             || (response.data.state === "ASSIGNED" && response.data.assignee != null && response.data.assignee === aId)     //ASSIGNED state이고 유저가 assignee인 경우
