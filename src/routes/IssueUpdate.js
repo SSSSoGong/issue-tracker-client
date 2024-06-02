@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import StateUpdateInputForm from "../components/StateUpdateInputForm";
 import { useNavigate, useParams } from "react-router-dom";
 import AssigneeSelectForm from "../components/AssigneeSelectForm";
+import axios from "axios";
+import { APIURL } from "../source/constants";
 
 const arrowStyle = {
     textAlign : "center",
@@ -22,20 +24,24 @@ const arrowStyle = {
 function IssueUpdate({userInfo, setUserInfo}){
     const navigate = useNavigate();
     const {projectId, issueId} = useParams();
+    const [loading, setLoading] = useState(true);
 
-    //dummy data
-    const issueInfo = {
-        title : "Cool Issue",
-        description : "It is cool issue",
-        priority : "MAJOR",
-        category : "BUG_REPORT",
-        state : "NEW",
-    }
+    //-----------------------------------------------------------
+    //설정할 변수 값
+    //-----------------------------------------------------------
+
+    //issue 정보
+    const [issueInfo, setIssueInfo] = useState({
+        title : "",
+        description : "",
+        priority : "",
+        category : "",
+        state : "",
+    })
 
     //다음에 갱신할 state
     const [nextState, setNextState] = useState('');
 
-    const [comment, setComment] = useState('');
 
     //assignee로 지정할 user의 accountId
     const [assignee, setAssignee] = useState('');
@@ -45,46 +51,98 @@ function IssueUpdate({userInfo, setUserInfo}){
 
     //추천 assignee List
     const [recommendedDevsList, setRecommendedDevsList] = useState();
+    
+
+    
+    //-----------------------------------------------------------
+    //data fetch 함수
+    //-----------------------------------------------------------
+
+    //초기화 함수
+    const fetchData = async () => {
+        setLoading(true);
+
+        try {
+
+            //issueInfo 초기화
+            const response = await axios.get(`${APIURL}/projects/${projectId}/issues/${issueId}`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                }
+            })
+
+            setIssueInfo({
+                title : response.data.title,
+                description : response.data.description,
+                priority : response.data.priority,
+                category : response.data.category,
+                state : response.data.state,
+            })
+
+
+            //nextState 값 초기화
+            switch(response.data.state) {
+                case 'NEW':
+                    setNextState('ASSIGNED');
+                    break;
+                case 'REOPENED' :
+                    setNextState('ASSIGNED');
+                    break;
+                case 'ASSIGNED' :
+                    setNextState('FIXED');
+                    break;
+                case 'FIXED' :
+                    setNextState('RESOLVED');
+                    break;
+                case 'RESOLVED' :
+                    setNextState('CLOSED');
+                    break;
+            }
+
+            
+            //추천 assignee list 초기화
+            const recommends = await axios.get(`${APIURL}/projects/${projectId}/issues/${issueId}/assignee-suggestion`, {
+                headers : {
+                    'Authorization' : userInfo.JWT
+                }
+            })
+            setRecommendedDevsList(recommends.data);
+
+            //developer list 초기화
+            const response2 = await axios.get(`${APIURL}/projects/${projectId}/users`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                }
+            })
+
+            const devs = response2.data
+            .filter(dev => dev.role === 'Developer')
+            .map(dev => ({ accountId: dev.accountId, username: dev.username }));
+
+            setDevsList(devs)
+
+        }catch(error){
+            console.log(error)
+        }finally{
+            setLoading(false);
+        }
+    }
 
 
     
 
-    //nextState 초기화
-    const initialize_nextState = () => {
-        setNextState('ASSIGNED');
-    }
-
-    //추천 assignee List 초기화   
-    //API call
-    const initialize_RecommendedDevsList = () => {
-
-        //dummy code
-        setRecommendedDevsList([
-            {accountId : "dev1", userName : "john"},
-            {accountId : "dev2", userName : "James"}
-        ])
-    };
-
-    //developer list 초기화
-    const initialize_devsList = () => {
-
-        //dummy code
-        setDevsList([
-            {accountId : "dev1", userName : "john"},
-            {accountId : "dev2", userName : "James"},
-            {accountId : "dev3", userName : "Micky"},
-            {accountId : "dev4", userName : "Cane"},
-            {accountId : "dev5", userName : "Lana"},
-        ])
-    };
-
 
     //최초 랜더링 시 초기화 실행
     useEffect(() => {
-        initialize_RecommendedDevsList();
-        initialize_devsList();
-        initialize_nextState();
+
+        fetchData();
     }, []);
+
+
+    
+    //-----------------------------------------------------------
+    //event handler
+    //-----------------------------------------------------------
 
     //assignne 지정을 위한 click event handling
     const handleClick = (event) => {
@@ -93,26 +151,87 @@ function IssueUpdate({userInfo, setUserInfo}){
         
     };
 
-
-    //form의 값 변경 handling
-    const handleChange = (event) => {
-        const {value} = event.target;
-        setComment(value);
-    };
-
-    //issue 생성 event handling
-    //api 호출 지점
-    const handleSubmit = (e) => {
+    //issue 업데이트 event handler
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("Comment", comment);
-        console.log("Assignee", assignee);
+        //ASSIGNED로 변경할 때, assignee 가 설정 안되면 취소시키기
+        if((nextState === "ASSIGNED") && (
+            assignee === ''
+        )){
+            alert('assignee를 설정하세요');
+            return;
+        }
 
-        //issue page로 이동
-        navigate(`/project/${projectId}/issue/${issueId}`);
+        try {
+
+            const config = {
+                headers : {
+                    'Authorization' : userInfo.JWT,
+                },
+            };
+
+
+            //이슈 상태 변경
+            const updateData = {
+                state : nextState,
+                assignee : assignee,
+            };
+
+            //console.log(updateData.state);
+
+            const updateJson = JSON.stringify(updateData);
+            const updateBlob = new Blob([updateJson], {type : "application/json"});
+
+            const updateFormData = new FormData();
+
+            updateFormData.append('requestDto', updateBlob);
+
+            await axios.post(`${APIURL}/projects/${projectId}/issues/${issueId}/state`, updateFormData, config);
+        
+            
+
+            //system comment
+            const scommentData = {
+                content: `[ -- State Update : ${nextState} -- ]`
+            };
+            const scommentJson = JSON.stringify(scommentData);
+            const scommentBlob = new Blob([scommentJson], {type : "application/json"});
+
+            const scommentFormData = new FormData();
+
+            scommentFormData.append('content', scommentBlob);
+
+            await axios.post(`${APIURL}/issues/${issueId}/comments`, scommentFormData, config);
+        
+            
+
+            
+        }catch(error) {
+            console.error(error);
+
+        }finally {
+            //issue page로 이동
+            navigate(`/project/${projectId}/issue/${issueId}`);
+        }
+
     }
 
 
+
+
+
+    
+    //-----------------------------------------------------------
+    //return
+    //-----------------------------------------------------------
+
+
+    if(loading){
+        return(
+            <div>Loading...</div>
+        );
+    }
 
     return (
         <div>
@@ -132,15 +251,15 @@ function IssueUpdate({userInfo, setUserInfo}){
                         <div class="arrowDown" style={arrowStyle}>
                             ↓
                         </div>
-                        
                         <StateUpdateInputForm
                             nextState={nextState}
-                            comment={comment}
-                            handleChange={handleChange}
+                            setNextState={setNextState}
                             handleSubmit={handleSubmit}
                             />
+ 
+
                         {
-                            nextState === 'ASSIGNED' 
+                            (nextState === 'ASSIGNED')
                             && <AssigneeSelectForm
                                     assignee={assignee}
                                     recommendedDevsList={recommendedDevsList}
@@ -148,6 +267,8 @@ function IssueUpdate({userInfo, setUserInfo}){
                                     handleClick={handleClick}
                                     />
                         }
+
+                        
                     </section>
                 </main>
             </div>

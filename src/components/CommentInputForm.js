@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 import style from "../styles/CommentInputForm.module.css"
 
 
-function CommentInputForm({handleSubmit, handleChange, handleImageChange, content, imageFileNames}){
+function CommentInputForm({
+    handleSubmit = (e) => e.preventDefault(), 
+    handleChange, handleImageChange, content, imageFileNames}){
     
     // 추가: 이미지 파일 이름 표시
     const renderImageFileNames = () => {
@@ -36,12 +38,14 @@ function CommentInputForm({handleSubmit, handleChange, handleImageChange, conten
                 onChange={handleImageChange}
                 accept="image/*"
                 />
-            <button className={style.btn} type="submit">Add Comment</button>
+                {handleSubmit && (
+                    <button className={style.btn} type="submit">Add Comment</button>
+                )}
         </form>
     );
 }
 CommentInputForm.propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func,
     handleChange: PropTypes.func.isRequired,
     handleImageChange: PropTypes.func.isRequired,
     content: PropTypes.string.isRequired,

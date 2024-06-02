@@ -12,7 +12,7 @@ function AssigneeSelectForm({assignee, recommendedDevsList, devsList, handleClic
                 <ul className={style.recommendedList} id="recommendedList">
                     {recommendedDevsList.map((item, idx) => (
                         <li className={style.recommended} key={idx}>
-                            <div className={style.userName}>{item.userName}</div>
+                            <div className={style.userName}>{item.username}</div>
                             <div className={style.accountId}>{item.accountId}</div>
                             <button className={style.devSelectBtn} value={item.accountId} onClick={handleClick}>Select</button>
                         </li>
@@ -25,7 +25,7 @@ function AssigneeSelectForm({assignee, recommendedDevsList, devsList, handleClic
                 <ul className={style.list} id="list">
                     {devsList.map((item, idx) => (
                         <li className={style.listItem} key={idx}>
-                            <div className={style.userName}>{item.userName}</div>
+                            <div className={style.userName}>{item.username}</div>
                             <div className={style.accountId}>{item.accountId}</div>
                             <button className={style.devSelectBtn} value={item.accountId} onClick={handleClick}>Select</button>
                         </li>

@@ -66,6 +66,7 @@ function Comments({userInfo, commentList}) {
                         ment = {"Delete"}
                         commentId = {item.id}
                         visible = {(item.writerId == jwtDecode(userInfo.JWT).accountId)}
+                        customMarginTop="0px"
                         />
                 </li>
             ))}
