@@ -11,7 +11,9 @@ import ProjectMenu from "../components/ProjectMenu";
 import '../styles/default_layout.css'
 import IssueSearch from "../components/IssueSearch";
 import IssueList from "../components/IssueList";
-
+import { APIURL } from "../source/constants";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 
 
@@ -57,9 +59,61 @@ function Filter({userInfo, setUserInfo}) {
         setLoading(true);
 
         try {
-            const fetchCondition = {
 
-            };
+            var fetchCondition = {};
+
+            //프로젝트에서 유저 권한 조회
+            const issueNumber = 10;
+            const aId = jwtDecode(userInfo.JWT).accountId
+            const response = await axios.get(`${APIURL}/users/${aId}/project/${projectId}/role`);
+
+            //검색 조건 설정
+            switch(response.data){
+                case 'Administrator' : //admin이면 최신 순으로 나열
+                    fetchCondition = {
+                        issueCount : issueNumber,
+                    };
+                    break;
+                case 'ProjectLeader' :  //PL이면 NEW state의 issue 최신 순 나열
+                    fetchCondition = {
+                        state : "NEW",
+                        issueCount : issueNumber,
+                    };
+                    break;
+                case 'Developer' : //Developer면 자신이 assignee로 지정된 issue 나열
+                    fetchCondition = {
+                        assignee : aId,
+                        issueCount : issueNumber,
+
+                    };
+                    break;
+                case 'Tester' : //Tester이면, 자신이 reporter인 issue 나열
+                    fetchCondition = {
+                        reporter : aId,
+                        issueCount : issueNumber,
+                    };
+                    break;
+            }
+
+            //이슈 검색
+            const searchedIssues = await axios.get(`${APIURL}/projects/${projectId}/issues`,{
+                headers : {
+                    'Authorization' : userInfo.JWT
+                },
+                params : fetchCondition
+            })
+
+            setIssues(searchedIssues.data.map(issue => ({
+                state : issue.state,
+                priority : issue.priority,
+                title : issue.title,
+                issueId : issue.issueId,
+            })));
+
+            
+
+            console.log(issues);
+            
 
 
         }catch(error) {
