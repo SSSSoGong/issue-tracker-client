@@ -30,7 +30,7 @@ function App() {
   const loggedIn = (localStorage.getItem('isLogin') === 'true');
 
   const [userInfo, setUserInfo] = useState({
-    isLogin: loggedIn,
+    isLogin: loggedIn || false,
     JWT: savedJWT || "",
   });
 
@@ -50,14 +50,14 @@ function App() {
 
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         
         {/** main page */}
         <Route path="/"                                                     
             element={                                          
             userInfo.isLogin ? (
-              <Navigate to={`project/0`} replace />  //login 되어 있다면 default page로 이동
+              <Navigate to={`/project/0`} replace />  //login 되어 있다면 default page로 이동
             ) : (
               <Introduction userInfo={userInfo} setUserInfo={setUserInfo}/>  //login 되어 있지 않을 때 main page로 이동
             )
