@@ -20,6 +20,7 @@ const logOutClicked = (navigate, setUserInfo) => {
 
 //log in 상태에서의 header
 function MainHeader_login({userName, setUserInfo}){
+
     const navigate = useNavigate();
 
     return (
@@ -73,7 +74,9 @@ function MainHeader_logout(){
 
 function MainHeader({userInfo, setUserInfo}){
 
-    const JWT = localStorage.getItem('JWT');
+    console.log(userInfo);
+
+    const JWT = userInfo.JWT;
     var id = null;
 
     
