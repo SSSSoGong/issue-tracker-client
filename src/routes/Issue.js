@@ -101,6 +101,8 @@ function Issue({userInfo, setUserInfo}){
                 imageUrls: [],
             });
 
+            setImageFileNames([]);
+
             //화면 갱신
             fetchData();
         }

@@ -9,6 +9,7 @@ import UserInput from "../components/UserInput";
 import style from "../styles/Login.module.css"
 import axios from "axios";
 import { APIURL } from "../source/constants";
+import logoImage from "../source/logoImage.png"
 
 
 
@@ -100,7 +101,7 @@ function Login({userInfo, setUserInfo}) {
                     <div className={`${style.login}`}>
                         <div className={`${style.userFrame}`} onChange={handleInputChange}>
                             <div className={`${style.imageFrame}`}>
-                                <img className={`${style.logoImage}`} src="/logoImage.png" alt="로고" />
+                                <img className={`${style.logoImage}`} src={logoImage} alt="로고" />
                                 <h3 className={`${style.title}`}>ISSUE ITSUE</h3>
                             </div>
                             <UserInput
