@@ -74,7 +74,6 @@ function MainHeader_logout(){
 
 function MainHeader({userInfo, setUserInfo}){
 
-    console.log(userInfo);
 
     const JWT = userInfo.JWT;
     var id = null;
